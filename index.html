@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moldes em A4 | Converter PDF Grande para A4 | Audaces em PDF | Molde Posters Digital</title>
+  <meta name="description" content="Converta moldes em PDF grandes para impressora comum em A4. Moldes CAD, Audaces em PDF, PDF A4 dividido. Converta seus moldes A4 com qualidade profissional.">
+  <meta name="author" content="Molde Posters Digital">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #9b59d6;
+      --primary-light: #b47be8;
+      --secondary: #f073bb;
+      --accent: #54c8ec;
+      --bg: #ffffff;
+      --bg-muted: #f8f7fc;
+      --card: #ffffff;
+      --foreground: #1a1a2e;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --green: #16a34a;
+      --grad-primary: linear-gradient(135deg, #9b59d6 0%, #f073bb 50%, #54c8ec 100%);
+      --grad-secondary: linear-gradient(135deg, #f073bb 0%, #9b59d6 100%);
+      --shadow-card: 0 4px 24px rgba(155,89,214,0.10);
+      --shadow-soft: 0 8px 40px rgba(155,89,214,0.18);
+      --radius: 8px; --radius-lg: 16px; --radius-xl: 24px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; color: var(--foreground); background: var(--bg); overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; padding: 14px 32px; border-radius: var(--radius); cursor: pointer; border: none; transition: all .2s; white-space: nowrap; text-decoration: none; }
+    .btn-white { background: #fff; color: var(--primary); }
+    .btn-white:hover { background: rgba(255,255,255,.9); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+    .btn-outline-white { background: transparent; color: #fff; border: 2px solid #fff; }
+    .btn-outline-white:hover { background: #fff; color: var(--primary); }
+    .btn-primary { background: var(--grad-primary); color: #fff; }
+    .btn-primary:hover { opacity: .9; transform: translateY(-1px); box-shadow: var(--shadow-soft); }
+    .btn-primary:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+    .btn-outline-primary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+    .btn-outline-primary:hover { background: var(--primary); color: #fff; }
+    .btn-green { background: var(--green); color: #fff; border: none; }
+    .btn-green:hover { background: #15803d; }
+    .btn-block { width: 100%; }
+
+    /* GRADIENT TEXT */
+    .text-gradient { background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* HERO */
+    #hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden;
+      background-image: linear-gradient(135deg, rgba(154,65,216,.92) 0%, rgba(240,115,187,.82) 50%, rgba(84,200,236,.92) 100%), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80');
+      background-size: cover; background-position: center; background-attachment: fixed; }
+    .hero-decor { position: absolute; inset: 0; opacity: .1; pointer-events: none; }
+    .hero-decor div { position: absolute; border: 4px solid white; }
+    .d1 { top:80px; left:80px; width:128px; height:128px; transform:rotate(45deg); }
+    .d2 { top:160px; right:128px; width:96px; height:96px; transform:rotate(12deg); }
+    .d3 { bottom:160px; left:160px; width:112px; height:112px; transform:rotate(-12deg); }
+    .d4 { bottom:80px; right:80px; width:144px; height:144px; transform:rotate(45deg); }
+    .hero-content { position: relative; z-index:10; text-align:center; color:#fff; padding:80px 24px; max-width:900px; margin:0 auto; }
+    .hero-badge { display:inline-flex; align-items:center; gap:16px; background:rgba(255,255,255,.2); backdrop-filter:blur(8px); border-radius:100px; padding:12px 24px; margin-bottom:32px; }
+    .hero-badge span { font-weight:500; font-size:15px; }
+    .hero-badge svg { width:24px; height:24px; flex-shrink:0; }
+    .hero-title { font-size:clamp(2.5rem,6vw,4.5rem); font-weight:800; line-height:1.15; margin-bottom:24px; }
+    .hero-title .sub { display:block; background:linear-gradient(90deg,rgba(255,255,255,1),rgba(255,255,255,.8)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero-subtitle { font-size:clamp(1rem,2vw,1.2rem); color:rgba(255,255,255,.9); max-width:680px; margin:0 auto 40px; line-height:1.7; }
+    .hero-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:56px; }
+    .hero-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:800px; margin:0 auto; }
+    .hero-stat { background:rgba(255,255,255,.15); backdrop-filter:blur(8px); border-radius:var(--radius-lg); padding:24px; }
+    .hero-stat h3 { font-weight:700; font-size:17px; margin-bottom:6px; }
+    .hero-stat p { font-size:14px; color:rgba(255,255,255,.8); }
+    .hero-scroll { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); animation:bounce 2s ease-in-out infinite; color:#fff; }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+    /* SECTIONS */
+    section { padding:80px 0; }
+    .section-header { text-align:center; margin-bottom:64px; }
+    .section-title { font-size:clamp(2rem,4vw,3rem); font-weight:800; margin-bottom:20px; letter-spacing:-.5px; }
+    .section-subtitle { font-size:18px; color:var(--muted); max-width:600px; margin:0 auto; line-height:1.7; }
+
+    /* CONVERTER */
+    #converter { background: var(--bg); }
+    .converter-wrapper { display:flex; justify-content:center; margin-bottom:64px; }
+    .converter-card { background:var(--card); border-radius:var(--radius-lg); border:2px solid var(--border); box-shadow:var(--shadow-card); overflow:hidden; width:100%; max-width:560px; transition:box-shadow .3s; }
+    .converter-card:hover { box-shadow:var(--shadow-soft); }
+    .converter-card-header { background:var(--grad-primary); padding:24px; color:#fff; }
+    .converter-card-header h3 { display:flex; align-items:center; gap:12px; font-size:20px; font-weight:700; margin-bottom:6px; }
+    .converter-card-header p { font-size:14px; opacity:.9; }
+    .converter-card-body { padding:24px; }
+    .upload-area { border:2px dashed var(--border); border-radius:var(--radius-lg); padding:48px 24px; text-align:center; cursor:pointer; transition:border-color .2s; margin-bottom:20px; }
+    .upload-area:hover { border-color:var(--primary); }
+    .upload-area.dragover { border-color:var(--primary); background:rgba(155,89,214,.04); }
+    .upload-area input { display:none; }
+    .upload-icon { width:48px; height:48px; margin:0 auto 16px; color:var(--muted); }
+    .upload-area h4 { font-size:17px; font-weight:600; margin-bottom:6px; }
+    .upload-area p { font-size:14px; color:var(--muted); }
+    .file-info { display:none; align-items:center; gap:12px; background:rgba(155,89,214,.08); border:1px solid rgba(155,89,214,.2); border-radius:var(--radius); padding:12px 16px; margin-bottom:20px; font-size:14px; font-weight:500; }
+    .file-info.show { display:flex; }
+    .file-name { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .progress-bar-wrap { display:none; background:var(--border); border-radius:100px; height:8px; overflow:hidden; margin-bottom:20px; }
+    .progress-bar-wrap.show { display:block; }
+    .progress-bar { height:100%; background:var(--grad-primary); border-radius:100px; width:0%; transition:width .3s; }
+
+    /* HOW-TO GRID */
+    .how-steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; max-width:900px; margin:0 auto 0; }
+    .how-step { text-align:center; }
+    .how-step-icon { width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
+    .how-step-icon svg { width:32px; height:32px; }
+    .how-step-icon.purple { background:rgba(155,89,214,.1); color:var(--primary); }
+    .how-step-icon.pink { background:rgba(240,115,187,.1); color:var(--secondary); }
+    .how-step-icon.blue { background:rgba(84,200,236,.1); color:var(--accent); }
+    .how-step h3 { font-size:18px; font-weight:700; margin-bottom:8px; }
+    .how-step p { font-size:14px; color:var(--muted); }
+
+    /* HOW-TO STEPS CARD */
+    #como-usar { background:linear-gradient(135deg,var(--bg) 0%,var(--bg-muted) 100%); }
+    .steps-card { background:rgba(155,89,214,.04); border:1px solid rgba(155,89,214,.15); border-radius:var(--radius-lg); padding:40px; margin-bottom:32px; }
+    .steps-card-header { text-align:center; margin-bottom:32px; }
+    .steps-icon-wrap { width:64px; height:64px; background:var(--grad-primary); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+    .steps-card-header h3 { font-size:22px; font-weight:700; margin-bottom:8px; }
+    .steps-card-header p { color:var(--muted); font-size:15px; }
+    .steps-list { display:flex; flex-direction:column; gap:24px; }
+    .step-item { display:flex; gap:16px; align-items:flex-start; }
+    .step-num { width:32px; height:32px; min-width:32px; background:rgba(155,89,214,.1); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; color:var(--primary); }
+    .step-item h4 { font-size:16px; font-weight:600; margin-bottom:4px; }
+    .step-item p { font-size:14px; color:var(--muted); }
+    .divider { height:1px; background:var(--border); margin:40px 0; }
+    .tips-card { background:linear-gradient(135deg,rgba(84,200,236,.08),rgba(155,89,214,.08)); border:1px solid rgba(84,200,236,.2); border-radius:var(--radius-lg); padding:40px; }
+    .tips-card-header { text-align:center; margin-bottom:32px; }
+    .tips-icon-wrap { width:64px; height:64px; background:rgba(84,200,236,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; color:var(--accent); }
+    .tips-card-header h3 { font-size:22px; font-weight:700; }
+    .tips-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:800px; margin:0 auto; }
+    .tip-item { display:flex; gap:12px; align-items:flex-start; }
+    .tip-item svg { width:20px; height:20px; flex-shrink:0; margin-top:2px; color:var(--accent); }
+    .tip-item h4 { font-size:15px; font-weight:600; margin-bottom:4px; }
+    .tip-item p { font-size:13px; color:var(--muted); }
+
+    /* DICAS */
+    #dicas { background:linear-gradient(135deg,var(--bg) 0%,var(--bg-muted) 100%); }
+    .dicas-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .dica-card { background:var(--card); border:2px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; transition:all .3s; }
+    .dica-card:hover { border-color:rgba(155,89,214,.2); box-shadow:var(--shadow-card); transform:translateY(-2px); }
+    .dica-card-header { padding:24px 24px 0; }
+    .dica-card-header h3 { display:flex; align-items:center; gap:12px; font-size:20px; font-weight:700; color:var(--primary); margin-bottom:4px; }
+    .dica-card-header svg { width:24px; height:24px; flex-shrink:0; }
+    .dica-card-body { padding:16px 24px 24px; }
+    .dica-card-body p { color:var(--muted); line-height:1.7; font-size:15px; }
+    .dica-extra { margin-top:56px; background:var(--grad-primary); border-radius:var(--radius-xl); padding:48px; color:#fff; text-align:center; }
+    .dica-extra h3 { font-size:24px; font-weight:700; margin-bottom:16px; }
+    .dica-extra p { font-size:17px; margin-bottom:16px; max-width:600px; margin-left:auto; margin-right:auto; }
+    .dica-extra .checks { color:rgba(255,255,255,.9); font-size:15px; }
+
+    /* CONTATO */
+    #contato { background:var(--grad-secondary); color:#fff; }
+    #contato .section-title { color:#fff; }
+    #contato .section-subtitle { color:rgba(255,255,255,.9); }
+    .contato-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:900px; margin:0 auto 56px; }
+    .contato-card { background:rgba(255,255,255,.97); border-radius:var(--radius-lg); border:2px solid rgba(255,255,255,.2); overflow:hidden; box-shadow:var(--shadow-card); }
+    .contato-card-header { padding:24px 24px 0; }
+    .contato-card-header h3 { display:flex; align-items:center; gap:12px; font-size:20px; font-weight:700; color:var(--primary); }
+    .contato-card-header svg { width:24px; height:24px; }
+    .contato-card-body { padding:20px 24px 24px; }
+    .contato-card-body > p { color:var(--muted); margin-bottom:16px; font-size:15px; }
+    .contato-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:24px; }
+    .contato-list li { font-size:14px; color:var(--muted); }
+    .loja-features { display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
+    .loja-feature { display:flex; align-items:center; gap:10px; font-size:14px; }
+    .loja-feature svg { width:16px; height:16px; color:var(--primary); flex-shrink:0; }
+    .contato-why { background:rgba(255,255,255,.1); backdrop-filter:blur(8px); border-radius:var(--radius-xl); padding:48px; max-width:700px; margin:0 auto; text-align:center; }
+    .contato-why h3 { font-size:22px; font-weight:700; margin-bottom:24px; }
+    .why-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; text-align:left; }
+    .why-item p:first-child { font-weight:700; margin-bottom:4px; }
+    .why-item p:last-child { font-size:14px; color:rgba(255,255,255,.8); }
+
+    /* FOOTER */
+    footer { background:var(--foreground); color:#fff; padding:64px 0 32px; text-align:center; }
+    .footer-title { font-size:24px; font-weight:700; margin-bottom:16px; }
+    .footer-desc { color:rgba(255,255,255,.7); max-width:560px; margin:0 auto 40px; line-height:1.7; }
+    .footer-divider { height:1px; background:rgba(255,255,255,.15); margin-bottom:32px; }
+    .footer-bottom { color:rgba(255,255,255,.5); font-size:14px; }
+    .footer-bottom a { color:var(--primary-light); text-decoration:underline; }
+    .footer-bottom p+p { margin-top:8px; }
+
+    /* RESPONSIVE */
+    @media (max-width:900px) {
+      .hero-stats { grid-template-columns:1fr; max-width:360px; }
+      .how-steps-grid { grid-template-columns:1fr; max-width:480px; }
+      .dicas-grid { grid-template-columns:1fr 1fr; }
+      .contato-grid { grid-template-columns:1fr; }
+      .why-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width:640px) {
+      section { padding:60px 0; }
+      .hero-title { font-size:2.2rem; }
+      .hero-buttons { flex-direction:column; align-items:stretch; }
+      .dicas-grid { grid-template-columns:1fr; }
+      .tips-grid { grid-template-columns:1fr; }
+      .steps-card,.tips-card { padding:24px; }
+      .dica-extra { padding:32px 24px; }
+      .contato-why { padding:32px 24px; }
+      .hero-decor { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-decor"><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg>
+      <span>Moldes Digitais</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+    </div>
+    <h1 class="hero-title">Moldes em A4<span class="sub">PDF Grande em Impressora Comum</span></h1>
+    <p class="hero-subtitle">Converta moldes em PDF, Audaces em PDF e moldes CAD para páginas A4. Transforme qualquer PDF grande para impressão em impressora comum com qualidade profissional.</p>
+    <div class="hero-buttons">
+      <a href="#converter" class="btn btn-white">Converter Agora <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a>
+      <a href="#dicas" class="btn btn-outline-white">Ver Moldes Disponíveis</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><h3>✂️ Moldes Profissionais</h3><p>A partir de R$ 7,99</p></div>
+      <div class="hero-stat"><h3>🎨 Dicas de Sublimação</h3><p>Aprenda técnicas avançadas</p></div>
+      <div class="hero-stat"><h3>📚 Curso Audaces</h3><p>Modelagem profissional</p></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
+</section>
+
+<!-- CONVERTER -->
+<section id="converter">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title text-gradient">Converter Moldes em A4</h2>
+      <p class="section-subtitle">Transforme moldes em PDF grandes para impressão em A4 comum. Converta moldes CAD, Audaces em PDF e qualquer PDF grande para impressora comum dividido em páginas A4. Perfeito para moldes de costura, modelagem e projetos profissionais.</p>
+    </div>
+    <div class="converter-wrapper">
+      <div class="converter-card">
+        <div class="converter-card-header">
+          <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Converter Moldes em A4 - PDF Grande para A4</h3>
+          <p>Converta moldes em PDF, Audaces em PDF, moldes CAD para páginas A4 em impressora comum</p>
+        </div>
+        <div class="converter-card-body">
+          <div class="upload-area" id="uploadArea">
+            <input type="file" accept=".pdf" id="filePDF">
+            <label for="filePDF" style="cursor:pointer;display:block;">
+              <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+              <h4>Clique para selecionar arquivo PDF</h4>
+              <p>Arraste e solte ou clique para fazer upload</p>
+            </label>
+          </div>
+          <div class="file-info" id="fileInfo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke
