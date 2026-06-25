@@ -3,257 +3,1016 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moldes em A4 | Converter PDF Grande para A4 | Audaces em PDF | Molde Posters Digital</title>
-  <meta name="description" content="Converta moldes em PDF grandes para impressora comum em A4. Moldes CAD, Audaces em PDF, PDF A4 dividido. Converta seus moldes A4 com qualidade profissional.">
-  <meta name="author" content="Molde Posters Digital">
+  <title>Conversor PDF para Posters A4 | Modelagem e Diversos</title>
+  <meta name="description" content="Converta seus PDFs em posters divididos em folhas A4. Ferramenta gratuita para preparar seus moldes para plotagem e digitalização.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --primary: #9b59d6;
-      --primary-light: #b47be8;
-      --secondary: #f073bb;
-      --accent: #54c8ec;
-      --bg: #ffffff;
-      --bg-muted: #f8f7fc;
-      --card: #ffffff;
-      --foreground: #1a1a2e;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --green: #16a34a;
-      --grad-primary: linear-gradient(135deg, #9b59d6 0%, #f073bb 50%, #54c8ec 100%);
-      --grad-secondary: linear-gradient(135deg, #f073bb 0%, #9b59d6 100%);
-      --shadow-card: 0 4px 24px rgba(155,89,214,0.10);
-      --shadow-soft: 0 8px 40px rgba(155,89,214,0.18);
-      --radius: 8px; --radius-lg: 16px; --radius-xl: 24px;
+      --green: #009C3B;
+      --green-light: #00c94b;
+      --yellow: #FFDF00;
+      --blue: #002776;
+      --bg: #0a1628;
+      --bg-darker: #050e1a;
+      --bg-card: #0d1f3c;
+      --text: #e8f0fe;
+      --text-muted: #7a90b8;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Barlow', sans-serif;
     }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; color: var(--foreground); background: var(--bg); overflow-x: hidden; }
-    a { color: inherit; text-decoration: none; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-    /* BUTTONS */
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; padding: 14px 32px; border-radius: var(--radius); cursor: pointer; border: none; transition: all .2s; white-space: nowrap; text-decoration: none; }
-    .btn-white { background: #fff; color: var(--primary); }
-    .btn-white:hover { background: rgba(255,255,255,.9); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,.15); }
-    .btn-outline-white { background: transparent; color: #fff; border: 2px solid #fff; }
-    .btn-outline-white:hover { background: #fff; color: var(--primary); }
-    .btn-primary { background: var(--grad-primary); color: #fff; }
-    .btn-primary:hover { opacity: .9; transform: translateY(-1px); box-shadow: var(--shadow-soft); }
-    .btn-primary:disabled { opacity: .4; cursor: not-allowed; transform: none; }
-    .btn-outline-primary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
-    .btn-outline-primary:hover { background: var(--primary); color: #fff; }
-    .btn-green { background: var(--green); color: #fff; border: none; }
-    .btn-green:hover { background: #15803d; }
-    .btn-block { width: 100%; }
-
-    /* GRADIENT TEXT */
-    .text-gradient { background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-
-    /* HERO */
-    #hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden;
-      background-image: linear-gradient(135deg, rgba(154,65,216,.92) 0%, rgba(240,115,187,.82) 50%, rgba(84,200,236,.92) 100%), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80');
-      background-size: cover; background-position: center; background-attachment: fixed; }
-    .hero-decor { position: absolute; inset: 0; opacity: .1; pointer-events: none; }
-    .hero-decor div { position: absolute; border: 4px solid white; }
-    .d1 { top:80px; left:80px; width:128px; height:128px; transform:rotate(45deg); }
-    .d2 { top:160px; right:128px; width:96px; height:96px; transform:rotate(12deg); }
-    .d3 { bottom:160px; left:160px; width:112px; height:112px; transform:rotate(-12deg); }
-    .d4 { bottom:80px; right:80px; width:144px; height:144px; transform:rotate(45deg); }
-    .hero-content { position: relative; z-index:10; text-align:center; color:#fff; padding:80px 24px; max-width:900px; margin:0 auto; }
-    .hero-badge { display:inline-flex; align-items:center; gap:16px; background:rgba(255,255,255,.2); backdrop-filter:blur(8px); border-radius:100px; padding:12px 24px; margin-bottom:32px; }
-    .hero-badge span { font-weight:500; font-size:15px; }
-    .hero-badge svg { width:24px; height:24px; flex-shrink:0; }
-    .hero-title { font-size:clamp(2.5rem,6vw,4.5rem); font-weight:800; line-height:1.15; margin-bottom:24px; }
-    .hero-title .sub { display:block; background:linear-gradient(90deg,rgba(255,255,255,1),rgba(255,255,255,.8)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .hero-subtitle { font-size:clamp(1rem,2vw,1.2rem); color:rgba(255,255,255,.9); max-width:680px; margin:0 auto 40px; line-height:1.7; }
-    .hero-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:56px; }
-    .hero-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:800px; margin:0 auto; }
-    .hero-stat { background:rgba(255,255,255,.15); backdrop-filter:blur(8px); border-radius:var(--radius-lg); padding:24px; }
-    .hero-stat h3 { font-weight:700; font-size:17px; margin-bottom:6px; }
-    .hero-stat p { font-size:14px; color:rgba(255,255,255,.8); }
-    .hero-scroll { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); animation:bounce 2s ease-in-out infinite; color:#fff; }
-    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
-
-    /* SECTIONS */
-    section { padding:80px 0; }
-    .section-header { text-align:center; margin-bottom:64px; }
-    .section-title { font-size:clamp(2rem,4vw,3rem); font-weight:800; margin-bottom:20px; letter-spacing:-.5px; }
-    .section-subtitle { font-size:18px; color:var(--muted); max-width:600px; margin:0 auto; line-height:1.7; }
-
-    /* CONVERTER */
-    #converter { background: var(--bg); }
-    .converter-wrapper { display:flex; justify-content:center; margin-bottom:64px; }
-    .converter-card { background:var(--card); border-radius:var(--radius-lg); border:2px solid var(--border); box-shadow:var(--shadow-card); overflow:hidden; width:100%; max-width:560px; transition:box-shadow .3s; }
-    .converter-card:hover { box-shadow:var(--shadow-soft); }
-    .converter-card-header { background:var(--grad-primary); padding:24px; color:#fff; }
-    .converter-card-header h3 { display:flex; align-items:center; gap:12px; font-size:20px; font-weight:700; margin-bottom:6px; }
-    .converter-card-header p { font-size:14px; opacity:.9; }
-    .converter-card-body { padding:24px; }
-    .upload-area { border:2px dashed var(--border); border-radius:var(--radius-lg); padding:48px 24px; text-align:center; cursor:pointer; transition:border-color .2s; margin-bottom:20px; }
-    .upload-area:hover { border-color:var(--primary); }
-    .upload-area.dragover { border-color:var(--primary); background:rgba(155,89,214,.04); }
-    .upload-area input { display:none; }
-    .upload-icon { width:48px; height:48px; margin:0 auto 16px; color:var(--muted); }
-    .upload-area h4 { font-size:17px; font-weight:600; margin-bottom:6px; }
-    .upload-area p { font-size:14px; color:var(--muted); }
-    .file-info { display:none; align-items:center; gap:12px; background:rgba(155,89,214,.08); border:1px solid rgba(155,89,214,.2); border-radius:var(--radius); padding:12px 16px; margin-bottom:20px; font-size:14px; font-weight:500; }
-    .file-info.show { display:flex; }
-    .file-name { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .progress-bar-wrap { display:none; background:var(--border); border-radius:100px; height:8px; overflow:hidden; margin-bottom:20px; }
-    .progress-bar-wrap.show { display:block; }
-    .progress-bar { height:100%; background:var(--grad-primary); border-radius:100px; width:0%; transition:width .3s; }
-
-    /* HOW-TO GRID */
-    .how-steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; max-width:900px; margin:0 auto 0; }
-    .how-step { text-align:center; }
-    .how-step-icon { width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
-    .how-step-icon svg { width:32px; height:32px; }
-    .how-step-icon.purple { background:rgba(155,89,214,.1); color:var(--primary); }
-    .how-step-icon.pink { background:rgba(240,115,187,.1); color:var(--secondary); }
-    .how-step-icon.blue { background:rgba(84,200,236,.1); color:var(--accent); }
-    .how-step h3 { font-size:18px; font-weight:700; margin-bottom:8px; }
-    .how-step p { font-size:14px; color:var(--muted); }
-
-    /* HOW-TO STEPS CARD */
-    #como-usar { background:linear-gradient(135deg,var(--bg) 0%,var(--bg-muted) 100%); }
-    .steps-card { background:rgba(155,89,214,.04); border:1px solid rgba(155,89,214,.15); border-radius:var(--radius-lg); padding:40px; margin-bottom:32px; }
-    .steps-card-header { text-align:center; margin-bottom:32px; }
-    .steps-icon-wrap { width:64px; height:64px; background:var(--grad-primary); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
-    .steps-card-header h3 { font-size:22px; font-weight:700; margin-bottom:8px; }
-    .steps-card-header p { color:var(--muted); font-size:15px; }
-    .steps-list { display:flex; flex-direction:column; gap:24px; }
-    .step-item { display:flex; gap:16px; align-items:flex-start; }
-    .step-num { width:32px; height:32px; min-width:32px; background:rgba(155,89,214,.1); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; color:var(--primary); }
-    .step-item h4 { font-size:16px; font-weight:600; margin-bottom:4px; }
-    .step-item p { font-size:14px; color:var(--muted); }
-    .divider { height:1px; background:var(--border); margin:40px 0; }
-    .tips-card { background:linear-gradient(135deg,rgba(84,200,236,.08),rgba(155,89,214,.08)); border:1px solid rgba(84,200,236,.2); border-radius:var(--radius-lg); padding:40px; }
-    .tips-card-header { text-align:center; margin-bottom:32px; }
-    .tips-icon-wrap { width:64px; height:64px; background:rgba(84,200,236,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; color:var(--accent); }
-    .tips-card-header h3 { font-size:22px; font-weight:700; }
-    .tips-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:800px; margin:0 auto; }
-    .tip-item { display:flex; gap:12px; align-items:flex-start; }
-    .tip-item svg { width:20px; height:20px; flex-shrink:0; margin-top:2px; color:var(--accent); }
-    .tip-item h4 { font-size:15px; font-weight:600; margin-bottom:4px; }
-    .tip-item p { font-size:13px; color:var(--muted); }
-
-    /* DICAS */
-    #dicas { background:linear-gradient(135deg,var(--bg) 0%,var(--bg-muted) 100%); }
-    .dicas-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-    .dica-card { background:var(--card); border:2px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; transition:all .3s; }
-    .dica-card:hover { border-color:rgba(155,89,214,.2); box-shadow:var(--shadow-card); transform:translateY(-2px); }
-    .dica-card-header { padding:24px 24px 0; }
-    .dica-card-header h3 { display:flex; align-items:center; gap:12px; font-size:20px; font-weight:700; color:var(--primary); margin-bottom:4px; }
-    .dica-card-header svg { width:24px; height:24px; flex-shrink:0; }
-    .dica-card-body { padding:16px 24px 24px; }
-    .dica-card-body p { color:var(--muted); line-height:1.7; font-size:15px; }
-    .dica-extra { margin-top:56px; background:var(--grad-primary); border-radius:var(--radius-xl); padding:48px; color:#fff; text-align:center; }
-    .dica-extra h3 { font-size:24px; font-weight:700; margin-bottom:16px; }
-    .dica-extra p { font-size:17px; margin-bottom:16px; max-width:600px; margin-left:auto; margin-right:auto; }
-    .dica-extra .checks { color:rgba(255,255,255,.9); font-size:15px; }
-
-    /* CONTATO */
-    #contato { background:var(--grad-secondary); color:#fff; }
-    #contato .section-title { color:#fff; }
-    #contato .section-subtitle { color:rgba(255,255,255,.9); }
-    .contato-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:900px; margin:0 auto 56px; }
-    .contato-card { background:rgba(255,255,255,.97); border-radius:var(--radius-lg); border:2px solid rgba(255,255,255,.2); overflow:hidden; box-shadow:var(--shadow-card); }
-    .contato-card-header { padding:24px 24px 0; }
-    .contato-card-header h3 { display:flex; align-items:center; gap:12px; font-size:20px; font-weight:700; color:var(--primary); }
-    .contato-card-header svg { width:24px; height:24px; }
-    .contato-card-body { padding:20px 24px 24px; }
-    .contato-card-body > p { color:var(--muted); margin-bottom:16px; font-size:15px; }
-    .contato-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:24px; }
-    .contato-list li { font-size:14px; color:var(--muted); }
-    .loja-features { display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
-    .loja-feature { display:flex; align-items:center; gap:10px; font-size:14px; }
-    .loja-feature svg { width:16px; height:16px; color:var(--primary); flex-shrink:0; }
-    .contato-why { background:rgba(255,255,255,.1); backdrop-filter:blur(8px); border-radius:var(--radius-xl); padding:48px; max-width:700px; margin:0 auto; text-align:center; }
-    .contato-why h3 { font-size:22px; font-weight:700; margin-bottom:24px; }
-    .why-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; text-align:left; }
-    .why-item p:first-child { font-weight:700; margin-bottom:4px; }
-    .why-item p:last-child { font-size:14px; color:rgba(255,255,255,.8); }
-
+    
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* NAVBAR */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 18px 0;
+      background: rgba(5, 14, 26, 0.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 223, 0, 0.1);
+    }
+    
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+    
+    .nav-logo span {
+      color: var(--yellow);
+    }
+    
+    /* HEADER */
+    #header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 120px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(0,156,59,0.08) 0%, rgba(0,39,118,0.15) 100%);
+    }
+    
+    .hero-content h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    
+    .hero-content h1 span {
+      color: var(--yellow);
+    }
+    
+    .hero-content p {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* UPLOAD SECTION */
+    #upload-section {
+      padding: 60px 0;
+    }
+    
+    .upload-card {
+      background: var(--bg-card);
+      border: 2px solid rgba(255, 223, 0, 0.3);
+      border-radius: 20px;
+      padding: 48px 32px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .upload-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+    
+    .upload-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 1px;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    
+    .upload-desc {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 15px;
+    }
+    
+    .file-input-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    
+    .file-input-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 24px;
+      background: rgba(0, 156, 59, 0.15);
+      border: 2px dashed rgba(0, 156, 59, 0.4);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 700;
+      color: var(--green-light);
+    }
+    
+    .file-input-label:hover {
+      background: rgba(0, 156, 59, 0.25);
+      border-color: rgba(0, 156, 59, 0.6);
+    }
+    
+    #pdfInput {
+      display: none;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 32px;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.5px;
+    }
+    
+    .btn-primary {
+      background: var(--green);
+      color: #fff;
+      border: 2px solid var(--green-light);
+      box-shadow: 0 0 20px rgba(0, 156, 59, 0.3);
+      width: 100%;
+      margin-top: 20px;
+    }
+    
+    .btn-primary:hover {
+      box-shadow: 0 0 30px rgba(0, 156, 59, 0.45);
+      transform: translateY(-2px);
+    }
+    
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-download {
+      background: var(--yellow);
+      color: var(--bg-darker);
+      border: 2px solid var(--yellow);
+      font-weight: 800;
+      margin-top: 16px;
+    }
+    
+    .btn-download:hover {
+      background: #e6c800;
+      transform: translateY(-2px);
+    }
+    
+    .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+      border: 2px solid #25D366;
+      font-weight: 700;
+      display: inline-flex;
+      gap: 8px;
+      text-decoration: none;
+      margin-top: 20px;
+      width: 100%;
+    }
+    
+    .btn-whatsapp:hover {
+      background: #1fa753;
+      transform: translateY(-2px);
+    }
+    
+    /* PROGRESS */
+    .progress-wrapper {
+      margin-top: 24px;
+      display: none;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: var(--green);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .progress-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    
+    /* TUTORIAL SECTION */
+    #tutorial-section {
+      padding: 80px 0;
+      background: rgba(0, 0, 0, 0.3);
+    }
+    
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: 1px;
+      margin-bottom: 48px;
+      text-align: center;
+      color: #fff;
+    }
+    
+    .section-title span {
+      color: var(--yellow);
+    }
+    
+    .tutorial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+    
+    .tutorial-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 32px 28px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .tutorial-card:hover {
+      border-color: rgba(255, 223, 0, 0.4);
+      transform: translateY(-6px);
+    }
+    
+    .tutorial-number {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--yellow);
+      margin-bottom: 12px;
+    }
+    
+    .tutorial-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    
+    .tutorial-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    /* CONTACT SECTION */
+    #contact-section {
+      padding: 80px 0;
+      text-align: center;
+    }
+    
+    .contact-box {
+      background: linear-gradient(135deg, rgba(0, 156, 59, 0.15) 0%, rgba(0, 39, 118, 0.15) 100%);
+      border: 1px solid rgba(255, 223, 0, 0.3);
+      border-radius: 16px;
+      padding: 48px 32px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .contact-box h2 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    
+    .contact-box p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+    
+    .contact-services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    
+    .service-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 156, 59, 0.2);
+      border: 1px solid rgba(0, 156, 59, 0.4);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--green-light);
+    }
+    
+    .course-link {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 12px 24px;
+      background: rgba(255, 223, 0, 0.1);
+      border: 1px solid rgba(255, 223, 0, 0.3);
+      border-radius: 8px;
+      color: var(--yellow);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .course-link:hover {
+      background: rgba(255, 223, 0, 0.2);
+      box-shadow: 0 0 20px rgba(255, 223, 0, 0.2);
+    }
+    
     /* FOOTER */
-    footer { background:var(--foreground); color:#fff; padding:64px 0 32px; text-align:center; }
-    .footer-title { font-size:24px; font-weight:700; margin-bottom:16px; }
-    .footer-desc { color:rgba(255,255,255,.7); max-width:560px; margin:0 auto 40px; line-height:1.7; }
-    .footer-divider { height:1px; background:rgba(255,255,255,.15); margin-bottom:32px; }
-    .footer-bottom { color:rgba(255,255,255,.5); font-size:14px; }
-    .footer-bottom a { color:var(--primary-light); text-decoration:underline; }
-    .footer-bottom p+p { margin-top:8px; }
-
-    /* RESPONSIVE */
-    @media (max-width:900px) {
-      .hero-stats { grid-template-columns:1fr; max-width:360px; }
-      .how-steps-grid { grid-template-columns:1fr; max-width:480px; }
-      .dicas-grid { grid-template-columns:1fr 1fr; }
-      .contato-grid { grid-template-columns:1fr; }
-      .why-grid { grid-template-columns:1fr; }
+    footer {
+      background: var(--bg-darker);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 48px 0 32px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
     }
-    @media (max-width:640px) {
-      section { padding:60px 0; }
-      .hero-title { font-size:2.2rem; }
-      .hero-buttons { flex-direction:column; align-items:stretch; }
-      .dicas-grid { grid-template-columns:1fr; }
-      .tips-grid { grid-template-columns:1fr; }
-      .steps-card,.tips-card { padding:24px; }
-      .dica-extra { padding:32px 24px; }
-      .contato-why { padding:32px 24px; }
-      .hero-decor { display:none; }
+    
+    footer p {
+      margin-bottom: 12px;
+    }
+    
+    .footer-brand {
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    
+    /* PREVIEW SECTION */
+    #preview-section {
+      padding: 60px 0;
+      display: none;
+    }
+    
+    .preview-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+      text-align: center;
+      color: #fff;
+    }
+    
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    
+    .preview-page {
+      background: white;
+      border: 2px solid rgba(0, 156, 59, 0.3);
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 210/297;
+      position: relative;
+    }
+    
+    .preview-page canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .preview-overlay {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--green);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    
+    .input-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 223, 0, 0.2);
+      padding: 12px 16px;
+      border-radius: 8px;
+    }
+    
+    .input-group label {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    
+    .input-group input {
+      width: 60px;
+      padding: 6px 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      color: #fff;
+      font-family: var(--font-body);
+    }
+    
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--yellow);
+      box-shadow: 0 0 10px rgba(255, 223, 0, 0.2);
+    }
+    
+    .hidden-pdf {
+      display: none;
+    }
+    
+    .success-message {
+      display: none;
+      background: rgba(0, 156, 59, 0.2);
+      border: 1px solid rgba(0, 156, 59, 0.4);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      color: var(--green-light);
+      font-weight: 600;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .success-message.show {
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      .tutorial-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .preview-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .controls {
+        flex-direction: column;
+      }
+      
+      .input-group {
+        justify-content: space-between;
+      }
+      
+      .input-group input {
+        width: 50px;
+      }
     }
   </style>
 </head>
 <body>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-decor"><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div></div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg>
-      <span>Moldes Digitais</span>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
-    </div>
-    <h1 class="hero-title">Moldes em A4<span class="sub">PDF Grande em Impressora Comum</span></h1>
-    <p class="hero-subtitle">Converta moldes em PDF, Audaces em PDF e moldes CAD para páginas A4. Transforme qualquer PDF grande para impressão em impressora comum com qualidade profissional.</p>
-    <div class="hero-buttons">
-      <a href="#converter" class="btn btn-white">Converter Agora <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a>
-      <a href="#dicas" class="btn btn-outline-white">Ver Moldes Disponíveis</a>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><h3>✂️ Moldes Profissionais</h3><p>A partir de R$ 7,99</p></div>
-      <div class="hero-stat"><h3>🎨 Dicas de Sublimação</h3><p>Aprenda técnicas avançadas</p></div>
-      <div class="hero-stat"><h3>📚 Curso Audaces</h3><p>Modelagem profissional</p></div>
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span>📐</span>
+        MODELAGEM <span>&nbsp;& DIVERSOS</span>
+      </div>
     </div>
   </div>
-  <div class="hero-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
+</nav>
+
+<!-- HEADER -->
+<section id="header">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Conversor PDF para <span>Posters A4</span></h1>
+      <p>Divida seus PDFs em folhas A4 para plotagem, digitalização e impressão. Ferramenta simples e gratuita para preparar seus moldes.</p>
+    </div>
+  </div>
 </section>
 
-<!-- CONVERTER -->
-<section id="converter">
+<!-- UPLOAD SECTION -->
+<section id="upload-section">
   <div class="container">
-    <div class="section-header">
-      <h2 class="section-title text-gradient">Converter Moldes em A4</h2>
-      <p class="section-subtitle">Transforme moldes em PDF grandes para impressão em A4 comum. Converta moldes CAD, Audaces em PDF e qualquer PDF grande para impressora comum dividido em páginas A4. Perfeito para moldes de costura, modelagem e projetos profissionais.</p>
-    </div>
-    <div class="converter-wrapper">
-      <div class="converter-card">
-        <div class="converter-card-header">
-          <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Converter Moldes em A4 - PDF Grande para A4</h3>
-          <p>Converta moldes em PDF, Audaces em PDF, moldes CAD para páginas A4 em impressora comum</p>
+    <div class="upload-card">
+      <div class="upload-icon">📄</div>
+      <h2 class="upload-title">Selecione seu arquivo PDF</h2>
+      <p class="upload-desc">Clique para selecionar um arquivo PDF ou arraste aqui. O arquivo será dividido em páginas A4 para facilitar a impressão e montagem do poster.</p>
+      
+      <div class="file-input-wrapper">
+        <label for="pdfInput" class="file-input-label">
+          📁 Clique para selecionar arquivo PDF
+        </label>
+        <input type="file" id="pdfInput" accept=".pdf" />
+      </div>
+      
+      <div class="progress-wrapper" id="progressWrapper">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
         </div>
-        <div class="converter-card-body">
-          <div class="upload-area" id="uploadArea">
-            <input type="file" accept=".pdf" id="filePDF">
-            <label for="filePDF" style="cursor:pointer;display:block;">
-              <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-              <h4>Clique para selecionar arquivo PDF</h4>
-              <p>Arraste e solte ou clique para fazer upload</p>
-            </label>
-          </div>
-          <div class="file-info" id="fileInfo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke
+        <div class="progress-text" id="progressText">Processando... 0%</div>
+      </div>
+      
+      <button class="btn btn-primary" id="convertBtn" disabled>
+        🔄 Converter PDF
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW SECTION -->
+<section id="preview-section">
+  <div class="container">
+    <div class="success-message" id="successMessage">
+      ✅ PDF convertido com sucesso! Abaixo você pode visualizar as páginas e fazer o download.
+    </div>
+    
+    <h2 class="preview-title">Visualização das <span>Folhas A4</span></h2>
+    
+    <div class="controls">
+      <div class="input-group">
+        <label>Margem (mm):</label>
+        <input type="number" id="marginInput" value="5" min="0" max="20" />
+      </div>
+      <button class="btn btn-primary" id="regenerateBtn" style="width: auto;">
+        🔄 Regenerar com nova margem
+      </button>
+    </div>
+    
+    <div class="preview-grid" id="previewGrid"></div>
+    
+    <div style="text-align: center;">
+      <button class="btn btn-download" id="downloadBtn">
+        ⬇️ Baixar PDF completo
+      </button>
+      <button class="btn btn-primary" id="newFileBtn" style="margin-left: 12px; width: auto;">
+        📁 Carregar outro arquivo
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- TUTORIAL SECTION -->
+<section id="tutorial-section">
+  <div class="container">
+    <h2 class="section-title">Como Usar o <span>Conversor</span></h2>
+    
+    <div class="tutorial-grid">
+      <div class="tutorial-card">
+        <div class="tutorial-number">1</div>
+        <h3>Selecione o PDF</h3>
+        <p>Clique no botão acima e escolha seu arquivo PDF. Você pode usar moldes em PDF para roupas, peças de design ou qualquer documento.</p>
+      </div>
+      
+      <div class="tutorial-card">
+        <div class="tutorial-number">2</div>
+        <h3>Converta em Folhas A4</h3>
+        <p>O sistema irá dividir automaticamente seu PDF em múltiplas folhas tamanho A4 com marcas de corte e margem configurável.</p>
+      </div>
+      
+      <div class="tutorial-card">
+        <div class="tutorial-number">3</div>
+        <h3>Visualize</h3>
+        <p>Veja uma prévia de todas as páginas antes de fazer o download. Você pode ajustar a margem conforme necessário.</p>
+      </div>
+      
+      <div class="tutorial-card">
+        <div class="tutorial-number">4</div>
+        <h3>Baixe o Arquivo</h3>
+        <p>Faça o download do PDF completo com todas as folhas A4 prontas para imprimir, plotar ou digitalizar.</p>
+      </div>
+      
+      <div class="tutorial-card">
+        <div class="tutorial-number">5</div>
+        <h3>Imprima e Monte</h3>
+        <p>Imprima todas as folhas, recorte nas linhas de corte e monte seu poster completo colando as partes com precisão.</p>
+      </div>
+      
+      <div class="tutorial-card">
+        <div class="tutorial-number">6</div>
+        <h3>Plotagem/Digitalização</h3>
+        <p>Leve seu poster montado para plotagem em papel especial ou para digitalização de moldes em máquinas especializadas.</p>
+      </div>
+    </div>
+    
+    <div style="background: rgba(0,156,59,0.1); border: 1px solid rgba(0,156,59,0.3); border-radius: 12px; padding: 24px; max-width: 800px; margin: 0 auto; text-align: center;">
+      <p style="color: var(--text-muted); font-size: 14px; line-height: 1.8;">
+        <strong style="color: var(--green-light);">💡 Dica:</strong> Esta ferramenta é perfeita para preparar moldes de modelagem, templates de design e documentos grandes que precisam ser impressos em múltiplas folhas. As marcas de corte ajudam na montagem precisa do poster.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact-section">
+  <div class="container">
+    <div class="contact-box">
+      <h2>🤝 Quer mais soluções em PDF?</h2>
+      <p>A <strong>Modelagem e Diversos</strong> oferece diversos serviços para ajudar seu negócio de moda, design e modelagem.</p>
+      
+      <div class="contact-services">
+        <span class="service-badge">✂️ Moldes em PDF</span>
+        <span class="service-badge">📐 Desenvolvimento</span>
+        <span class="service-badge">🖨️ Plotagem</span>
+        <span class="service-badge">📑 Digitalização</span>
+        <span class="service-badge">👗 Curso Audaces</span>
+      </div>
+      
+      <a href="https://wa.me/5535998121698?text=Olá%20Modelagem%20e%20Diversos!%20Gostaria%20de%20saber%20mais%20sobre%20moldes%20em%20PDF,%20plotagem%20e%20cursos%20de%20modelagem." 
+         target="_blank" 
+         class="btn btn-whatsapp">
+        💬 Entre em contato via WhatsApp
+      </a>
+      
+      <br>
+      
+      <p style="margin-top: 24px; color: var(--text-muted); font-size: 14px;">
+        Para saber mais sobre nossos cursos de modelagem com Audaces:
+      </p>
+      
+      <a href="https://aprendaaudaces.site" target="_blank" class="course-link">
+        🎓 Acesse aprendaaudaces.site
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-brand">🏆 MODELAGEM E DIVERSOS</div>
+    <p>Conversor PDF para Posters A4 - Ferramenta para preparar moldes e designs</p>
+    <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+      © 2024 <strong>Modelagem e Diversos™</strong> - Todos os direitos reservados. Marca registrada.
+    </p>
+  </div>
+</footer>
+
+<!-- HIDDEN CANVAS FOR PDF GENERATION -->
+<div class="hidden-pdf" id="pdfContainer"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script>
+  // Configurar worker do PDF.js
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  let currentPdf = null;
+  let currentPages = [];
+  let pdfFile = null;
+
+  // Elementos
+  const pdfInput = document.getElementById('pdfInput');
+  const convertBtn = document.getElementById('convertBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const newFileBtn = document.getElementById('newFileBtn');
+  const regenerateBtn = document.getElementById('regenerateBtn');
+  const progressWrapper = document.getElementById('progressWrapper');
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  const previewSection = document.getElementById('preview-section');
+  const previewGrid = document.getElementById('previewGrid');
+  const uploadSection = document.getElementById('upload-section');
+  const successMessage = document.getElementById('successMessage');
+  const marginInput = document.getElementById('marginInput');
+
+  // Dimensões A4 em pixels (72 DPI)
+  const A4_WIDTH = 595;
+  const A4_HEIGHT = 842;
+
+  // Upload handler
+  pdfInput.addEventListener('change', handleFileSelect);
+
+  function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (!file || file.type !== 'application/pdf') {
+      alert('Por favor, selecione um arquivo PDF válido.');
+      return;
+    }
+    
+    pdfFile = file;
+    convertBtn.disabled = false;
+    convertBtn.textContent = '📄 ' + file.name + ' selecionado - Clique para converter';
+  }
+
+  // Converter PDF
+  convertBtn.addEventListener('click', convertPDF);
+
+  async function convertPDF() {
+    if (!pdfFile) return;
+
+    convertBtn.disabled = true;
+    progressWrapper.style.display = 'block';
+    previewGrid.innerHTML = '';
+    successMessage.classList.remove('show');
+
+    try {
+      const arrayBuffer = await pdfFile.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+      currentPdf = pdf;
+      currentPages = [];
+
+      const totalPages = pdf.numPages;
+
+      for (let i = 1; i <= totalPages; i++) {
+        const progress = Math.round((i / totalPages) * 100);
+        progressFill.style.width = progress + '%';
+        progressText.textContent = `Processando... ${progress}%`;
+
+        const page = await pdf.getPage(i);
+        currentPages.push(page);
+      }
+
+      // Gerar visualização
+      generatePreview();
+      previewSection.style.display = 'block';
+      uploadSection.scrollIntoView({ behavior: 'smooth' });
+      progressWrapper.style.display = 'none';
+      successMessage.classList.add('show');
+      convertBtn.disabled = false;
+      convertBtn.textContent = '🔄 Converter outro PDF';
+
+    } catch (error) {
+      console.error('Erro ao processar PDF:', error);
+      alert('Erro ao processar o PDF. Tente novamente.');
+      progressWrapper.style.display = 'none';
+      convertBtn.disabled = false;
+    }
+  }
+
+  async function generatePreview() {
+    previewGrid.innerHTML = '';
+    const pages = await tilePages(currentPages);
+
+    pages.forEach((page, index) => {
+      const previewDiv = document.createElement('div');
+      previewDiv.className = 'preview-page';
+      
+      const canvas = document.createElement('canvas');
+      canvas.width = A4_WIDTH;
+      canvas.height = A4_HEIGHT;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, A4_WIDTH, A4_HEIGHT);
+      
+      // Desenhar conteúdo da página
+      drawPageContent(ctx, page, marginInput.value);
+      
+      previewDiv.appendChild(canvas);
+      
+      const overlay = document.createElement('div');
+      overlay.className = 'preview-overlay';
+      overlay.textContent = `Folha ${index + 1}`;
+      previewDiv.appendChild(overlay);
+      
+      previewGrid.appendChild(previewDiv);
+    });
+  }
+
+  function drawPageContent(ctx, pageData, margin = 5) {
+    const marginPx = (margin * 72) / 25.4; // Converter mm para pixels
+    
+    // Desenhar marcas de corte
+    ctx.strokeStyle = '#cccccc';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([5, 5]);
+    
+    // Retângulo de corte
+    ctx.strokeRect(marginPx, marginPx, A4_WIDTH - marginPx * 2, A4_HEIGHT - marginPx * 2);
+    ctx.setLineDash([]);
+    
+    // Marcas de cantos
+    const cornerSize = 20;
+    ctx.strokeStyle = '#009C3B';
+    ctx.lineWidth = 2;
+    
+    // Canto superior esquerdo
+    ctx.strokeRect(marginPx, marginPx, cornerSize, cornerSize);
+    // Canto superior direito
+    ctx.strokeRect(A4_WIDTH - marginPx - cornerSize, marginPx, cornerSize, cornerSize);
+    // Canto inferior esquerdo
+    ctx.strokeRect(marginPx, A4_HEIGHT - marginPx - cornerSize, cornerSize, cornerSize);
+    // Canto inferior direito
+    ctx.strokeRect(A4_WIDTH - marginPx - cornerSize, A4_HEIGHT - marginPx - cornerSize, cornerSize, cornerSize);
+    
+    // Número da página
+    ctx.fillStyle = '#009C3B';
+    ctx.font = 'bold 12px Arial';
+    ctx.fillText('Página ' + (pageData.index + 1), marginPx + 10, A4_HEIGHT - marginPx + 15);
+  }
+
+  async function tilePages(pages) {
+    const tiledPages = [];
+    
+    for (let i = 0; i < pages.length; i++) {
+      tiledPages.push({
+        index: i,
+        page: pages[i]
+      });
+    }
+    
+    return tiledPages;
+  }
+
+  // Download PDF
+  downloadBtn.addEventListener('click', downloadPDF);
+
+  async function downloadPDF() {
+    if (!currentPages || currentPages.length === 0) return;
+
+    downloadBtn.disabled = true;
+    downloadBtn.textContent = '⏳ Gerando PDF...';
+
+    try {
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const margin = parseFloat(marginInput.value) || 5;
+
+      for (let i = 0; i < currentPages.length; i++) {
+        if (i > 0) {
+          pdf.addPage();
+        }
+
+        // Adicionar página com margem
+        const canvas = await renderPageToCanvas(currentPages[i]);
+        const imgData = canvas.toDataURL('image/png');
+        
+        const pageWidth = 210 - (margin * 2);
+        const pageHeight = 297 - (margin * 2);
+        
+        pdf.addImage(imgData, 'PNG', margin, margin, pageWidth, pageHeight);
+        
+        // Adicionar número da página
+        pdf.setFontSize(8);
+        pdf.setTextColor(0, 156, 59);
+        pdf.text(`Folha ${i + 1}`, margin + 5, 297 - margin + 3);
+      }
+
+      // Download
+      const fileName = pdfFile.name.replace('.pdf', '_A4.pdf');
+      pdf.save(fileName);
+
+      downloadBtn.disabled = false;
+      downloadBtn.textContent = '✅ PDF baixado com sucesso!';
+      
+      setTimeout(() => {
+        downloadBtn.textContent = '⬇️ Baixar PDF completo';
+      }, 2000);
+
+    } catch (error) {
+      console.error('Erro ao gerar PDF:', error);
+      alert('Erro ao gerar o PDF. Tente novamente.');
+      downloadBtn.disabled = false;
+      downloadBtn.textContent = '⬇️ Baixar PDF completo';
+    }
+  }
+
+  async function renderPageToCanvas(page) {
+    const scale = 2;
+    const viewport = page.getViewport({ scale: scale });
+
+    const canvas = document.createElement('canvas');
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+
+    const context = canvas.getContext('2d');
+    const renderContext = {
+      canvasContext: context,
+      viewport: viewport
+    };
+
+    await page.render(renderContext).promise;
+    return canvas;
+  }
+
+  // Regenerar com nova margem
+  regenerateBtn.addEventListener('click', generatePreview);
+
+  // Novo arquivo
+  newFileBtn.addEventListener('click', () => {
+    pdfInput.value = '';
+    pdfFile = null;
+    currentPdf = null;
+    currentPages = [];
+    previewSection.style.display = 'none';
+    previewGrid.innerHTML = '';
+    convertBtn.disabled = true;
+    convertBtn.textContent = '🔄 Converter PDF';
+    progressWrapper.style.display = 'none';
+    uploadSection.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Drag and drop
+  const uploadLabel = document.querySelector('.file-input-label');
+  
+  uploadLabel.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadLabel.style.background = 'rgba(0, 156, 59, 0.25)';
+    uploadLabel.style.borderColor = 'rgba(0, 156, 59, 0.6)';
+  });
+
+  uploadLabel.addEventListener('dragleave', () => {
+    uploadLabel.style.background = 'rgba(0, 156, 59, 0.15)';
+    uploadLabel.style.borderColor = 'rgba(0, 156, 59, 0.4)';
+  });
+
+  uploadLabel.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadLabel.style.background = 'rgba(0, 156, 59, 0.15)';
+    uploadLabel.style.borderColor = 'rgba(0, 156, 59, 0.4)';
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      pdfInput.files = files;
+      const event = new Event('change', { bubbles: true });
+      pdfInput.dispatchEvent(event);
+    }
+  });
+</script>
+
+</body>
+</html>
