@@ -7,10 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.269/pdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.269/pdf.worker.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/pdfkit@0.13.0/js/pdfkit.standalone.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/blob-stream@0.1.3/index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -165,16 +163,15 @@
       background: white;
       border: 2px solid rgba(0, 156, 59, 0.3);
       border-radius: 8px;
-      overflow: hidden;
-      aspect-ratio: 210/297;
+      overflow: auto;
       position: relative;
       max-height: 280px;
+      padding: 8px;
     }
     
     .preview-page canvas {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
+      height: auto;
       background: white;
     }
     
@@ -251,7 +248,7 @@
   <div class="container">
     <div class="hero-content">
       <h1>Conversor PDF para <span>Posters A4</span></h1>
-      <p>Divida seus PDFs em folhas A4 para plotagem, digitalização e impressão. Ferramenta simples e gratuita para preparar seus moldes.</p>
+      <p>Divida seus PDFs em folhas A4 em modo POSTER. Unindo as folhas, recria o tamanho original do arquivo.</p>
     </div>
   </div>
 </section>
@@ -261,7 +258,7 @@
     <div class="upload-card">
       <div class="upload-icon">📄</div>
       <h2 class="upload-title">Selecione seu arquivo PDF</h2>
-      <p class="upload-desc">Clique para selecionar um arquivo PDF ou arraste aqui.</p>
+      <p class="upload-desc">Clique para selecionar um arquivo PDF ou arraste aqui. O arquivo será dividido em páginas A4 em modo poster.</p>
       
       <div>
         <label for="pdfInput" class="file-input-label">
@@ -288,25 +285,28 @@
   <div class="container">
     <div class="error-message message" id="errorMessage"></div>
     <div class="success-message message" id="successMessage">
-      ✅ PDF convertido com sucesso!
+      ✅ PDF convertido com sucesso! Modo POSTER - Folhas em tamanho real.
     </div>
     
     <h2 class="preview-title">Visualização das <span>Folhas A4</span></h2>
     
     <div class="controls">
       <div class="input-group">
-        <label>Margem (mm):</label>
+        <label>Margem de corte (mm):</label>
         <input type="number" id="marginInput" value="5" min="0" max="20" />
       </div>
+      <button class="btn btn-primary" id="regenerateBtn" style="width: auto; padding: 10px 24px;">
+        🔄 Regenerar
+      </button>
     </div>
     
     <div class="preview-grid" id="previewGrid"></div>
     
     <div style="text-align: center;">
       <button class="btn btn-download" id="downloadBtn">
-        ⬇️ Baixar PDF completo
+        ⬇️ Baixar PDF em modo POSTER
       </button>
-      <button class="btn btn-primary" id="newFileBtn" style="margin-left: 12px; width: auto; padding: 14px 24px;">
+      <button class="btn btn-primary" id="newFileBtn" style="margin-left: 12px; width: auto; padding: 10px 24px;">
         📁 Novo arquivo
       </button>
     </div>
@@ -321,37 +321,37 @@
       <div class="tutorial-card">
         <div class="tutorial-number">1</div>
         <h3>Selecione o PDF</h3>
-        <p>Escolha seu arquivo PDF com o molde ou design que deseja converter.</p>
+        <p>Escolha seu PDF (molde, design, projeto). Pode ser de qualquer tamanho.</p>
       </div>
       
       <div class="tutorial-card">
         <div class="tutorial-number">2</div>
-        <h3>Converta</h3>
-        <p>O sistema divide automaticamente em múltiplas folhas tamanho A4.</p>
+        <h3>Converta em Poster</h3>
+        <p>Sistema divide em folhas A4 mantendo proporção exata em modo POSTER.</p>
       </div>
       
       <div class="tutorial-card">
         <div class="tutorial-number">3</div>
         <h3>Visualize</h3>
-        <p>Veja uma prévia de todas as páginas antes de fazer o download.</p>
+        <p>Veja cada folha antes de baixar. Ajuste margens de corte se necessário.</p>
       </div>
       
       <div class="tutorial-card">
         <div class="tutorial-number">4</div>
-        <h3>Baixe</h3>
-        <p>Faça o download do PDF pronto para imprimir ou plotar.</p>
+        <h3>Baixe em Modo Poster</h3>
+        <p>Download do PDF com todas as folhas A4 prontas para imprimir.</p>
       </div>
       
       <div class="tutorial-card">
         <div class="tutorial-number">5</div>
         <h3>Imprima</h3>
-        <p>Imprima as folhas e recorte nas linhas de corte.</p>
+        <p>Imprima cada folha respeitando as marcas de corte nos cantos.</p>
       </div>
       
       <div class="tutorial-card">
         <div class="tutorial-number">6</div>
-        <h3>Monte</h3>
-        <p>Cole as partes e monte seu poster completo com precisão.</p>
+        <h3>Una e Cole</h3>
+        <p>Recorte nas marcas e cole as folhas. O resultado é o PDF em tamanho original!</p>
       </div>
     </div>
   </div>
@@ -389,7 +389,7 @@
 <footer>
   <div class="container">
     <div class="footer-brand">🏆 MODELAGEM E DIVERSOS</div>
-    <p>Conversor PDF para Posters A4</p>
+    <p>Conversor PDF para Posters A4 - Modo Poster para impressão em múltiplas folhas</p>
     <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
       © 2024 <strong>Modelagem e Diversos™</strong> - Todos os direitos reservados. Marca registrada.
     </p>
@@ -397,15 +397,17 @@
 </footer>
 
 <script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.269/pdf.worker.min.js';
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-  let currentPages = [];
+  let pdfData = null;
   let pdfFile = null;
+  let originalPdfDoc = null;
 
   const pdfInput = document.getElementById('pdfInput');
   const convertBtn = document.getElementById('convertBtn');
   const downloadBtn = document.getElementById('downloadBtn');
   const newFileBtn = document.getElementById('newFileBtn');
+  const regenerateBtn = document.getElementById('regenerateBtn');
   const progressWrapper = document.getElementById('progressWrapper');
   const progressFill = document.getElementById('progressFill');
   const progressText = document.getElementById('progressText');
@@ -415,6 +417,10 @@
   const successMessage = document.getElementById('successMessage');
   const errorMessage = document.getElementById('errorMessage');
   const marginInput = document.getElementById('marginInput');
+
+  // Dimensões A4 em pontos (72 DPI = 1 ponto)
+  const A4_WIDTH_PT = 210 / 25.4 * 72; // 595.28 pt
+  const A4_HEIGHT_PT = 297 / 25.4 * 72; // 841.89 pt
 
   pdfInput.addEventListener('change', handleFileSelect);
 
@@ -444,19 +450,12 @@
 
     try {
       const arrayBuffer = await pdfFile.arrayBuffer();
-      const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
-      currentPages = [];
+      originalPdfDoc = await pdfjsLib.getDocument(arrayBuffer).promise;
+      pdfData = arrayBuffer;
 
-      const totalPages = pdf.numPages;
-
-      for (let i = 1; i <= totalPages; i++) {
-        const progress = Math.round((i / totalPages) * 100);
-        progressFill.style.width = progress + '%';
-        progressText.textContent = `Processando página ${i} de ${totalPages}...`;
-
-        const page = await pdf.getPage(i);
-        currentPages.push(page);
-      }
+      const totalPages = originalPdfDoc.numPages;
+      progressText.textContent = `Carregando PDF com ${totalPages} página(s)...`;
+      progressFill.style.width = '100%';
 
       generatePreview();
       previewSection.style.display = 'block';
@@ -477,18 +476,32 @@
 
   async function generatePreview() {
     previewGrid.innerHTML = '';
+    
+    if (!originalPdfDoc) return;
 
-    for (let i = 0; i < currentPages.length; i++) {
+    const totalPages = originalPdfDoc.numPages;
+
+    for (let i = 1; i <= totalPages; i++) {
+      const page = await originalPdfDoc.getPage(i);
+      const viewport = page.getViewport({ scale: 0.3 });
+      
       const previewDiv = document.createElement('div');
       previewDiv.className = 'preview-page';
       
       try {
-        const canvas = await renderPageToCanvas(currentPages[i], 0.4);
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        const context = canvas.getContext('2d');
+        const renderContext = { canvasContext: context, viewport: viewport };
+        await page.render(renderContext).promise;
+
         previewDiv.appendChild(canvas);
         
         const overlay = document.createElement('div');
         overlay.className = 'preview-overlay';
-        overlay.textContent = `Folha ${i + 1}`;
+        overlay.textContent = `Página ${i}`;
         previewDiv.appendChild(overlay);
       } catch (e) {
         console.error('Erro ao renderizar página', i, e);
@@ -499,93 +512,128 @@
     }
   }
 
-  async function renderPageToCanvas(page, scale = 1) {
-    const viewport = page.getViewport({ scale: scale });
-    const canvas = document.createElement('canvas');
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
+  regenerateBtn.addEventListener('click', generatePreview);
 
-    const context = canvas.getContext('2d');
-    const renderContext = { canvasContext: context, viewport: viewport };
+  downloadBtn.addEventListener('click', downloadPosterPDF);
 
-    await page.render(renderContext).promise;
-    return canvas;
-  }
-
-  downloadBtn.addEventListener('click', downloadPDF);
-
-  async function downloadPDF() {
-    if (!currentPages || currentPages.length === 0) return;
+  async function downloadPosterPDF() {
+    if (!originalPdfDoc || !pdfData) return;
 
     downloadBtn.disabled = true;
-    downloadBtn.textContent = '⏳ Gerando...';
+    downloadBtn.textContent = '⏳ Gerando Poster...';
     errorMessage.classList.remove('show');
 
     try {
-      // Criar PDF com PDFKit
-      const doc = new PDFDocument({
-        size: 'A4',
-        margin: 0
-      });
+      const { jsPDF } = window.jspdf;
+      let posterPdf = null;
+      const margin = Math.max(0, parseFloat(marginInput.value)) || 5;
 
-      const stream = doc.pipe(blobStream());
+      // Processar cada página do PDF original
+      const totalPages = originalPdfDoc.numPages;
 
-      for (let i = 0; i < currentPages.length; i++) {
-        if (i > 0) {
-          doc.addPage();
+      for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+        const page = await originalPdfDoc.getPage(pageNum);
+        
+        // Obter dimensões originais da página
+        const viewport = page.getViewport({ scale: 1 });
+        const pageWidth = viewport.width; // em pontos
+        const pageHeight = viewport.height; // em pontos
+
+        // Calcular quantas folhas A4 são necessárias
+        const tilesHorizontal = Math.ceil(pageWidth / A4_WIDTH_PT);
+        const tilesVertical = Math.ceil(pageHeight / A4_HEIGHT_PT);
+
+        // Renderizar a página inteira em alta resolução
+        const fullCanvas = await renderPageFullSize(page, pageWidth, pageHeight);
+
+        // Dividir em tiles (folhas A4)
+        for (let y = 0; y < tilesVertical; y++) {
+          for (let x = 0; x < tilesHorizontal; x++) {
+            if (!posterPdf) {
+              posterPdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+              });
+            } else {
+              posterPdf.addPage();
+            }
+
+            // Extrair tile do canvas
+            const tileCanvas = document.createElement('canvas');
+            tileCanvas.width = A4_WIDTH_PT;
+            tileCanvas.height = A4_HEIGHT_PT;
+            const tileCtx = tileCanvas.getContext('2d');
+
+            const srcX = x * A4_WIDTH_PT;
+            const srcY = y * A4_HEIGHT_PT;
+
+            tileCtx.drawImage(fullCanvas, srcX, srcY, A4_WIDTH_PT, A4_HEIGHT_PT, 0, 0, A4_WIDTH_PT, A4_HEIGHT_PT);
+
+            // Adicionar marca de corte
+            tileCtx.strokeStyle = '#00AA00';
+            tileCtx.lineWidth = 2;
+            const cornerSize = 20;
+            tileCtx.strokeRect(5, 5, cornerSize, cornerSize);
+            tileCtx.strokeRect(A4_WIDTH_PT - cornerSize - 5, 5, cornerSize, cornerSize);
+            tileCtx.strokeRect(5, A4_HEIGHT_PT - cornerSize - 5, cornerSize, cornerSize);
+            tileCtx.strokeRect(A4_WIDTH_PT - cornerSize - 5, A4_HEIGHT_PT - cornerSize - 5, cornerSize, cornerSize);
+
+            // Adicionar texto com posição
+            tileCtx.fillStyle = '#009C3B';
+            tileCtx.font = 'bold 12px Arial';
+            tileCtx.fillText(`${x + 1}x${y + 1}`, 15, A4_HEIGHT_PT - 15);
+            tileCtx.fillText(`P${pageNum}`, A4_WIDTH_PT - 35, A4_HEIGHT_PT - 15);
+
+            // Converter tile para imagem e adicionar ao PDF
+            const tileImgData = tileCanvas.toDataURL('image/png');
+            posterPdf.addImage(tileImgData, 'PNG', 0, 0, 210, 297);
+          }
         }
-
-        // Renderizar página para canvas em alta qualidade
-        const canvas = await renderPageToCanvas(currentPages[i], 2);
-        const imgData = canvas.toDataURL('image/png');
-        
-        // Adicionar imagem no tamanho A4
-        doc.image(imgData, 0, 0, { width: 595, height: 842 });
-        
-        // Adicionar número da página
-        doc.fontSize(8)
-           .fillColor('#009C3B')
-           .text(`Folha ${i + 1} de ${currentPages.length}`, 20, 810);
       }
 
-      doc.end();
-
-      stream.on('finish', function() {
-        const blob = stream.toBlob('application/pdf');
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = pdfFile.name.replace('.pdf', '') + '_A4.pdf';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+      if (posterPdf) {
+        const fileName = pdfFile.name.replace('.pdf', '') + '_POSTER_A4.pdf';
+        posterPdf.save(fileName);
 
         downloadBtn.disabled = false;
-        downloadBtn.textContent = '✅ Pronto!';
+        downloadBtn.textContent = '✅ Poster gerado!';
         
         setTimeout(() => {
-          downloadBtn.textContent = '⬇️ Baixar PDF completo';
+          downloadBtn.textContent = '⬇️ Baixar PDF em modo POSTER';
         }, 3000);
-      });
-
-      stream.on('error', (err) => {
-        throw err;
-      });
+      }
 
     } catch (error) {
-      console.error('Erro ao gerar:', error);
-      errorMessage.textContent = '❌ Erro ao gerar PDF: ' + error.message;
+      console.error('Erro ao gerar poster:', error);
+      errorMessage.textContent = '❌ Erro ao gerar Poster: ' + error.message;
       errorMessage.classList.add('show');
       downloadBtn.disabled = false;
-      downloadBtn.textContent = '⬇️ Baixar PDF completo';
+      downloadBtn.textContent = '⬇️ Baixar PDF em modo POSTER';
     }
   }
 
+  async function renderPageFullSize(page, width, height) {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const context = canvas.getContext('2d');
+    const viewport = page.getViewport({ scale: 1 });
+    const renderContext = { canvasContext: context, viewport: viewport };
+    await page.render(renderContext).promise;
+
+    return canvas;
+  }
+
   newFileBtn.addEventListener('click', () => {
+    // Limpar referências
     pdfInput.value = '';
     pdfFile = null;
-    currentPages = [];
+    pdfData = null;
+    originalPdfDoc = null;
+    
+    // Resetar UI
     previewSection.style.display = 'none';
     previewGrid.innerHTML = '';
     convertBtn.disabled = true;
