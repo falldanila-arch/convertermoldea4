@@ -3,670 +3,815 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conversor PDF para Posters A4 | Modelagem e Diversos</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <title>Conversor de PDF em Posters A4 | Modelagem e Diversos</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --green: #009C3B;
-      --green-light: #00c94b;
-      --yellow: #FFDF00;
-      --bg: #0a1628;
-      --bg-darker: #050e1a;
-      --bg-card: #0d1f3c;
-      --text: #e8f0fe;
-      --text-muted: #7a90b8;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    
+
     body {
-      background: var(--bg);
-      color: var(--text);
       font-family: 'Barlow', sans-serif;
-      line-height: 1.6;
-    }
-    
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-    
-    #navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 18px 0;
-      background: rgba(5, 14, 26, 0.95);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255, 223, 0, 0.1);
-    }
-    
-    .nav-logo { font-family: 'Bebas Neue'; font-size: 20px; letter-spacing: 2px; color: #fff; }
-    .nav-logo span { color: var(--yellow); }
-    
-    #header {
+      background: linear-gradient(135deg, #041020 0%, #081a0e 50%, #0a1628 100%);
+      color: #e8f0fe;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-top: 120px;
-      text-align: center;
-      background: linear-gradient(135deg, rgba(0,156,59,0.08) 0%, rgba(0,39,118,0.15) 100%);
     }
-    
-    .hero-content h1 { font-family: 'Bebas Neue'; font-size: clamp(2.5rem, 8vw, 4rem); letter-spacing: 2px; margin-bottom: 16px; color: #fff; }
-    .hero-content h1 span { color: var(--yellow); }
-    .hero-content p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
-    
-    #upload-section { padding: 60px 0; }
-    
-    .upload-card {
-      background: var(--bg-card);
-      border: 2px solid rgba(255, 223, 0, 0.3);
-      border-radius: 20px;
-      padding: 48px 32px;
-      max-width: 600px;
+
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    header {
       text-align: center;
+      margin-bottom: 60px;
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(255, 223, 0, 0.2);
     }
-    
-    .upload-icon { font-size: 4rem; margin-bottom: 20px; }
-    .upload-title { font-family: 'Bebas Neue'; font-size: 2rem; letter-spacing: 1px; color: #fff; margin-bottom: 12px; }
-    .upload-desc { color: var(--text-muted); margin-bottom: 32px; font-size: 15px; }
-    
-    .file-input-label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 24px;
-      background: rgba(0, 156, 59, 0.15);
-      border: 2px dashed rgba(0, 156, 59, 0.4);
-      border-radius: 12px;
-      cursor: pointer;
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    .logo span {
+      color: #FFDF00;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #7a90b8;
+      margin-bottom: 20px;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+      align-items: start;
+    }
+
+    .upload-section {
+      background: rgba(13, 31, 60, 0.8);
+      border: 1px solid rgba(255, 223, 0, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+    }
+
+    .upload-area {
+      border: 2px dashed rgba(0, 156, 59, 0.5);
+      border-radius: 15px;
+      padding: 40px;
+      text-align: center;
       transition: all 0.3s ease;
-      font-weight: 700;
-      color: var(--green-light);
+      cursor: pointer;
+      background: rgba(0, 156, 59, 0.05);
     }
-    
-    .file-input-label:hover {
-      background: rgba(0, 156, 59, 0.25);
-      border-color: rgba(0, 156, 59, 0.6);
+
+    .upload-area:hover {
+      border-color: #FFDF00;
+      background: rgba(255, 223, 0, 0.1);
     }
-    
-    #pdfInput { display: none; }
-    
+
+    .upload-area.drag-over {
+      border-color: #00c94b;
+      background: rgba(0, 156, 59, 0.15);
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .upload-text {
+      margin-bottom: 16px;
+    }
+
+    .upload-text h3 {
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .upload-text p {
+      color: #7a90b8;
+      font-size: 14px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 32px;
-      font-family: 'Barlow', sans-serif;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 8px;
       font-weight: 700;
       font-size: 15px;
-      border-radius: 8px;
-      cursor: pointer;
       border: none;
+      cursor: pointer;
       transition: all 0.25s ease;
-    }
-    
-    .btn-primary {
-      background: var(--green);
-      color: #fff;
-      border: 2px solid var(--green-light);
-      box-shadow: 0 0 20px rgba(0, 156, 59, 0.3);
-      width: 100%;
-      margin-top: 20px;
-    }
-    
-    .btn-primary:hover:not(:disabled) { box-shadow: 0 0 30px rgba(0, 156, 59, 0.45); transform: translateY(-2px); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    
-    .btn-download {
-      background: var(--yellow);
-      color: var(--bg-darker);
-      border: 2px solid var(--yellow);
-      font-weight: 800;
       margin-top: 16px;
     }
-    
-    .btn-download:hover:not(:disabled) { background: #e6c800; transform: translateY(-2px); }
-    
+
+    .btn-primary {
+      background: #009C3B;
+      color: #fff;
+      border: 2px solid #00c94b;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 20px rgba(0, 156, 59, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-yellow {
+      background: #FFDF00;
+      color: #050e1a;
+      border: 2px solid #FFDF00;
+      font-weight: 800;
+      padding: 16px 36px;
+      font-size: 16px;
+    }
+
+    .btn-yellow:hover {
+      background: #e6c800;
+      box-shadow: 0 0 30px rgba(255, 223, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
     .btn-whatsapp {
       background: #25D366;
       color: #fff;
-      border: 2px solid #25D366;
-      font-weight: 700;
-      text-decoration: none;
-      margin-top: 20px;
-      width: 100%;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    
-    .btn-whatsapp:hover { background: #1fa753; transform: translateY(-2px); }
-    
-    .progress-wrapper { margin-top: 24px; display: none; }
-    .progress-bar { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
-    .progress-fill { height: 100%; background: var(--green); width: 0%; transition: width 0.3s ease; }
-    .progress-text { font-size: 13px; color: var(--text-muted); text-align: center; }
-    
-    #preview-section { padding: 60px 0; display: none; }
-    .preview-title { font-family: 'Bebas Neue'; font-size: 2rem; letter-spacing: 1px; margin-bottom: 32px; text-align: center; color: #fff; }
-    .preview-title span { color: var(--yellow); }
-    
-    .preview-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
+
+    .btn-whatsapp:hover {
+      background: #20BA5E;
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
     }
-    
-    .preview-page {
-      background: white;
-      border: 2px solid rgba(0, 156, 59, 0.3);
-      border-radius: 8px;
-      overflow: auto;
-      position: relative;
-      max-height: 280px;
-      padding: 8px;
+
+    .settings-section {
+      background: rgba(13, 31, 60, 0.8);
+      border: 1px solid rgba(255, 223, 0, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
     }
-    
-    .preview-page canvas {
-      width: 100%;
-      height: auto;
-      background: white;
+
+    .setting-group {
+      margin-bottom: 24px;
     }
-    
-    .preview-overlay {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: var(--green);
+
+    .setting-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
       color: #fff;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 11px;
+    }
+
+    .setting-group input,
+    .setting-group select {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      color: #fff;
+      font-family: 'Barlow', sans-serif;
+      font-size: 14px;
+    }
+
+    .setting-group input:focus {
+      outline: none;
+      border-color: #00c94b;
+      background: rgba(0, 156, 59, 0.1);
+      box-shadow: 0 0 0 3px rgba(0, 156, 59, 0.15);
+    }
+
+    .preview-section {
+      background: rgba(13, 31, 60, 0.8);
+      border: 1px solid rgba(255, 223, 0, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+      margin-bottom: 40px;
+      display: none;
+    }
+
+    .preview-section.active {
+      display: block;
+    }
+
+    .preview-title {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 18px;
       font-weight: 700;
     }
-    
-    .message { padding: 16px 20px; margin-bottom: 24px; border-radius: 8px; font-weight: 600; animation: slideIn 0.3s ease; }
-    .success-message { display: none; background: rgba(0, 156, 59, 0.2); border: 1px solid rgba(0, 156, 59, 0.4); color: var(--green-light); }
-    .error-message { display: none; background: rgba(231, 76, 60, 0.2); border: 1px solid rgba(231, 76, 60, 0.4); color: #ff6b5b; }
-    .message.show { display: block; }
-    
-    @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    
-    #tutorial-section { padding: 80px 0; background: rgba(0, 0, 0, 0.3); }
-    .section-title { font-family: 'Bebas Neue'; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: 1px; margin-bottom: 48px; text-align: center; color: #fff; }
-    .section-title span { color: var(--yellow); }
-    
-    .tutorial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; margin-bottom: 48px; }
-    .tutorial-card { background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 32px 28px; text-align: center; transition: all 0.3s ease; }
-    .tutorial-card:hover { border-color: rgba(255, 223, 0, 0.4); transform: translateY(-6px); }
-    .tutorial-number { font-family: 'Bebas Neue'; font-size: 3rem; color: var(--yellow); margin-bottom: 12px; }
-    .tutorial-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: #fff; }
-    .tutorial-card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
-    
-    #contact-section { padding: 80px 0; text-align: center; }
-    .contact-box { background: linear-gradient(135deg, rgba(0, 156, 59, 0.15) 0%, rgba(0, 39, 118, 0.15) 100%); border: 1px solid rgba(255, 223, 0, 0.3); border-radius: 16px; padding: 48px 32px; max-width: 700px; margin: 0 auto; }
-    .contact-box h2 { font-family: 'Bebas Neue'; font-size: 2.2rem; letter-spacing: 1px; margin-bottom: 16px; color: #fff; }
-    .contact-box p { color: var(--text-muted); margin-bottom: 24px; font-size: 15px; }
-    
-    .contact-services { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 32px; }
-    .service-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 156, 59, 0.2); border: 1px solid rgba(0, 156, 59, 0.4); border-radius: 100px; padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--green-light); }
-    
-    .course-link { display: inline-block; margin-top: 24px; padding: 12px 24px; background: rgba(255, 223, 0, 0.1); border: 1px solid rgba(255, 223, 0, 0.3); border-radius: 8px; color: var(--yellow); font-weight: 600; text-decoration: none; transition: all 0.3s ease; }
-    .course-link:hover { background: rgba(255, 223, 0, 0.2); box-shadow: 0 0 20px rgba(255, 223, 0, 0.2); }
-    
-    footer { background: var(--bg-darker); border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 48px 0 32px; text-align: center; color: var(--text-muted); font-size: 13px; }
-    footer p { margin-bottom: 12px; }
-    .footer-brand { font-weight: 700; color: #fff; margin-bottom: 8px; }
-    
-    .controls { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
-    .input-group { display: flex; gap: 8px; align-items: center; background: var(--bg-card); border: 1px solid rgba(255, 223, 0, 0.2); padding: 12px 16px; border-radius: 8px; }
-    .input-group label { font-weight: 600; font-size: 14px; color: var(--text-muted); }
-    .input-group input { width: 60px; padding: 6px 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; color: #fff; font-family: 'Barlow'; }
-    .input-group input:focus { outline: none; border-color: var(--yellow); box-shadow: 0 0 10px rgba(255, 223, 0, 0.2); }
-    
+
+    #preview-canvas {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 223, 0, 0.2);
+    }
+
+    .progress-section {
+      background: rgba(13, 31, 60, 0.8);
+      border: 1px solid rgba(255, 223, 0, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+      margin-bottom: 40px;
+      display: none;
+    }
+
+    .progress-section.active {
+      display: block;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00c94b, #FFDF00);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .tutorial-section {
+      background: linear-gradient(135deg, rgba(0, 156, 59, 0.1), rgba(0, 39, 118, 0.1));
+      border: 1px solid rgba(0, 156, 59, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 60px;
+    }
+
+    .tutorial-title {
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tutorial-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .step {
+      background: rgba(13, 31, 60, 0.8);
+      border: 1px solid rgba(255, 223, 0, 0.2);
+      border-radius: 15px;
+      padding: 24px;
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: #FFDF00;
+      color: #050e1a;
+      border-radius: 50%;
+      font-weight: 800;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .step h3 {
+      color: #fff;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .step p {
+      color: #7a90b8;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .contact-section {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(0, 156, 59, 0.1));
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .contact-title {
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .contact-description {
+      color: #7a90b8;
+      margin-bottom: 24px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .contact-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #FFDF00;
+      border: 2px solid #FFDF00;
+      padding: 12px 24px;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 223, 0, 0.1);
+      box-shadow: 0 0 20px rgba(255, 223, 0, 0.2);
+    }
+
+    footer {
+      background: rgba(5, 14, 26, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 32px 0;
+      text-align: center;
+      color: #7a90b8;
+      font-size: 13px;
+      margin-top: 80px;
+    }
+
+    .file-info {
+      background: rgba(0, 156, 59, 0.1);
+      border: 1px solid rgba(0, 156, 59, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .file-info.show {
+      display: block;
+    }
+
+    .status-message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .status-message.show {
+      display: block;
+    }
+
+    .status-message.success {
+      background: rgba(0, 156, 59, 0.2);
+      border: 1px solid rgba(0, 156, 59, 0.5);
+      color: #00c94b;
+    }
+
+    .status-message.error {
+      background: rgba(231, 76, 60, 0.2);
+      border: 1px solid rgba(231, 76, 60, 0.5);
+      color: #ff6b5b;
+    }
+
     @media (max-width: 768px) {
-      .tutorial-grid { grid-template-columns: 1fr; }
-      .preview-grid { grid-template-columns: repeat(2, 1fr); }
-      .controls { flex-direction: column; }
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .tutorial-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
-
-<nav id="navbar">
   <div class="container">
-    <div class="nav-logo">
-      <span>📐</span>
-      MODELAGEM <span>&nbsp;& DIVERSOS</span>
-    </div>
-  </div>
-</nav>
+    <!-- HEADER -->
+    <header>
+      <div class="logo">MODELAGEM <span>&amp; DIVERSOS</span></div>
+      <h1>Conversor de PDF em Posters A4</h1>
+      <p class="subtitle">Divida seus arquivos PDF em posters para imprimir em folhas A4 e baixe facilmente</p>
+    </header>
 
-<section id="header">
-  <div class="container">
-    <div class="hero-content">
-      <h1>Conversor PDF para <span>Posters A4</span></h1>
-      <p>Divida seus PDFs em folhas A4 em modo POSTER. Unindo as folhas, recria o tamanho original do arquivo.</p>
-    </div>
-  </div>
-</section>
-
-<section id="upload-section">
-  <div class="container">
-    <div class="upload-card">
-      <div class="upload-icon">📄</div>
-      <h2 class="upload-title">Selecione seu arquivo PDF</h2>
-      <p class="upload-desc">Clique para selecionar um arquivo PDF ou arraste aqui. O arquivo será dividido em páginas A4 em modo poster.</p>
-      
-      <div>
-        <label for="pdfInput" class="file-input-label">
-          📁 Clique para selecionar arquivo PDF
-        </label>
-        <input type="file" id="pdfInput" accept=".pdf" />
-      </div>
-      
-      <div class="progress-wrapper" id="progressWrapper">
-        <div class="progress-bar">
-          <div class="progress-fill" id="progressFill"></div>
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <!-- UPLOAD SECTION -->
+      <div class="upload-section">
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-icon">📄</div>
+          <div class="upload-text">
+            <h3>Clique para selecionar arquivo PDF</h3>
+            <p>ou arraste e solte aqui</p>
+            <p style="font-size: 12px; margin-top: 8px; color: #00c94b;">Máximo: 50MB</p>
+          </div>
+          <input type="file" id="pdfInput" accept=".pdf" />
+          <button class="btn btn-primary" onclick="document.getElementById('pdfInput').click()">
+            📁 Selecionar PDF
+          </button>
         </div>
-        <div class="progress-text" id="progressText">Processando... 0%</div>
+
+        <div class="file-info" id="fileInfo">
+          <p><strong>Arquivo carregado:</strong> <span id="fileName"></span></p>
+          <p><strong>Tamanho:</strong> <span id="fileSize"></span></p>
+          <p><strong>Páginas:</strong> <span id="filePages">Carregando...</span></p>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
       </div>
-      
-      <button class="btn btn-primary" id="convertBtn" disabled>
-        🔄 Converter PDF
+
+      <!-- SETTINGS SECTION -->
+      <div class="settings-section">
+        <h3 style="color: #fff; margin-bottom: 24px;">⚙️ Configurações</h3>
+
+        <div class="setting-group">
+          <label for="paperSize">Tamanho do papel:</label>
+          <select id="paperSize">
+            <option value="A4">A4 (210 x 297 mm)</option>
+            <option value="A3">A3 (297 x 420 mm)</option>
+            <option value="Letter">Letter (8.5 x 11 in)</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <label for="overlap">Sobreposição (mm):</label>
+          <input type="number" id="overlap" min="0" max="20" value="10" />
+          <p style="font-size: 12px; color: #7a90b8; margin-top: 4px;">Para colar as folhas facilmente</p>
+        </div>
+
+        <div class="setting-group">
+          <label for="quality">Qualidade:</label>
+          <select id="quality">
+            <option value="low">Baixa (100 DPI)</option>
+            <option value="medium" selected>Média (150 DPI)</option>
+            <option value="high">Alta (300 DPI)</option>
+          </select>
+        </div>
+
+        <button class="btn btn-yellow" id="convertBtn" onclick="convertPDF()" style="width: 100%;">
+          🔄 Converter PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- PROGRESS SECTION -->
+    <div class="progress-section" id="progressSection">
+      <div class="preview-title">Processando...</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text" id="progressText">0% concluído</div>
+    </div>
+
+    <!-- PREVIEW SECTION -->
+    <div class="preview-section" id="previewSection">
+      <div class="preview-title">Prévia do Primeiro Poster</div>
+      <canvas id="preview-canvas"></canvas>
+      <button class="btn btn-yellow" id="downloadBtn" onclick="downloadPosters()" style="width: 100%; margin-top: 20px;">
+        ⬇️ Baixar Arquivo PDF (Completo)
       </button>
     </div>
-  </div>
-</section>
 
-<section id="preview-section">
-  <div class="container">
-    <div class="error-message message" id="errorMessage"></div>
-    <div class="success-message message" id="successMessage">
-      ✅ PDF convertido com sucesso! Modo POSTER - Folhas em tamanho real.
-    </div>
-    
-    <h2 class="preview-title">Visualização das <span>Folhas A4</span></h2>
-    
-    <div class="controls">
-      <div class="input-group">
-        <label>Margem de corte (mm):</label>
-        <input type="number" id="marginInput" value="5" min="0" max="20" />
+    <!-- TUTORIAL SECTION -->
+    <div class="tutorial-section">
+      <h2 class="tutorial-title">📚 Como Usar o Conversor</h2>
+      <div class="tutorial-steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Selecione o PDF</h3>
+          <p>Clique no botão ou arraste um arquivo PDF para começar. O sistema suporta até 50MB.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Configure as Opções</h3>
+          <p>Escolha o tamanho do papel, qualidade e sobreposição para suas necessidades.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Converta o Arquivo</h3>
+          <p>Clique em "Converter PDF" e aguarde o processamento das páginas.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Baixe os Posters</h3>
+          <p>Após a conversão, baixe o arquivo PDF completo com todos os posters A4.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <h3>Imprima e Cole</h3>
+          <p>Imprima todas as páginas e use a sobreposição para colar os posters facilmente.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">6</div>
+          <h3>Dúvidas?</h3>
+          <p>Entre em contato conosco pelo WhatsApp para tirar dúvidas e conhecer nossos serviços.</p>
+        </div>
       </div>
-      <button class="btn btn-primary" id="regenerateBtn" style="width: auto; padding: 10px 24px;">
-        🔄 Regenerar
-      </button>
     </div>
-    
-    <div class="preview-grid" id="previewGrid"></div>
-    
-    <div style="text-align: center;">
-      <button class="btn btn-download" id="downloadBtn">
-        ⬇️ Baixar PDF em modo POSTER
-      </button>
-      <button class="btn btn-primary" id="newFileBtn" style="margin-left: 12px; width: auto; padding: 10px 24px;">
-        📁 Novo arquivo
-      </button>
-    </div>
-  </div>
-</section>
 
-<section id="tutorial-section">
-  <div class="container">
-    <h2 class="section-title">Como Usar o <span>Conversor</span></h2>
-    
-    <div class="tutorial-grid">
-      <div class="tutorial-card">
-        <div class="tutorial-number">1</div>
-        <h3>Selecione o PDF</h3>
-        <p>Escolha seu PDF (molde, design, projeto). Pode ser de qualquer tamanho.</p>
-      </div>
-      
-      <div class="tutorial-card">
-        <div class="tutorial-number">2</div>
-        <h3>Converta em Poster</h3>
-        <p>Sistema divide em folhas A4 mantendo proporção exata em modo POSTER.</p>
-      </div>
-      
-      <div class="tutorial-card">
-        <div class="tutorial-number">3</div>
-        <h3>Visualize</h3>
-        <p>Veja cada folha antes de baixar. Ajuste margens de corte se necessário.</p>
-      </div>
-      
-      <div class="tutorial-card">
-        <div class="tutorial-number">4</div>
-        <h3>Baixe em Modo Poster</h3>
-        <p>Download do PDF com todas as folhas A4 prontas para imprimir.</p>
-      </div>
-      
-      <div class="tutorial-card">
-        <div class="tutorial-number">5</div>
-        <h3>Imprima</h3>
-        <p>Imprima cada folha respeitando as marcas de corte nos cantos.</p>
-      </div>
-      
-      <div class="tutorial-card">
-        <div class="tutorial-number">6</div>
-        <h3>Una e Cole</h3>
-        <p>Recorte nas marcas e cole as folhas. O resultado é o PDF em tamanho original!</p>
+    <!-- CONTACT SECTION -->
+    <div class="contact-section">
+      <h2 class="contact-title">Conheça Nossos Serviços</h2>
+      <p class="contact-description">
+        Além do conversor gratuito, oferecemos moldes em PDF, desenvolvimento de moldes, plotagem, 
+        digitalização de moldes e curso completo de modelagem com Audaces.
+      </p>
+      <div class="contact-buttons">
+        <a href="https://wa.me/5535998121698?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20moldes,%20plotagem%20e%20cursos%20de%20modelagem." 
+           class="btn btn-whatsapp" target="_blank">
+          💬 Contatar via WhatsApp
+        </a>
+        <a href="https://aprendaaudaces.site" class="btn btn-outline" target="_blank">
+          🎓 Conhecer o Curso
+        </a>
       </div>
     </div>
   </div>
-</section>
 
-<section id="contact-section">
-  <div class="container">
-    <div class="contact-box">
-      <h2>🤝 Quer mais soluções?</h2>
-      <p>A <strong>Modelagem e Diversos</strong> oferece diversos serviços.</p>
-      
-      <div class="contact-services">
-        <span class="service-badge">✂️ Moldes em PDF</span>
-        <span class="service-badge">📐 Desenvolvimento</span>
-        <span class="service-badge">🖨️ Plotagem</span>
-        <span class="service-badge">📑 Digitalização</span>
-        <span class="service-badge">👗 Curso Audaces</span>
-      </div>
-      
-      <a href="https://wa.me/5535998121698?text=Olá%20Modelagem%20e%20Diversos!%20Gostaria%20de%20saber%20mais%20sobre%20moldes%20em%20PDF" 
-         target="_blank" 
-         class="btn btn-whatsapp">
-        💬 Entre em contato via WhatsApp
-      </a>
-      
-      <br>
-      
-      <a href="https://aprendaaudaces.site" target="_blank" class="course-link">
-        🎓 Acesse aprendaaudaces.site
-      </a>
-    </div>
-  </div>
-</section>
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2024 Modelagem e Diversos™ - Todos os direitos reservados. Marca registrada.</p>
+    <p>Desenvolvido com ❤️ para facilitar sua vida</p>
+  </footer>
 
-<footer>
-  <div class="container">
-    <div class="footer-brand">🏆 MODELAGEM E DIVERSOS</div>
-    <p>Conversor PDF para Posters A4 - Modo Poster para impressão em múltiplas folhas</p>
-    <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-      © 2024 <strong>Modelagem e Diversos™</strong> - Todos os direitos reservados. Marca registrada.
-    </p>
-  </div>
-</footer>
+  <!-- PDF.JS LIBRARY -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  <script>
+    const { jsPDF } = window.jspdf;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-  let pdfData = null;
-  let pdfFile = null;
-  let originalPdfDoc = null;
+    let pdfDoc = null;
+    let uploadedFileName = '';
+    let posterData = null;
 
-  const pdfInput = document.getElementById('pdfInput');
-  const convertBtn = document.getElementById('convertBtn');
-  const downloadBtn = document.getElementById('downloadBtn');
-  const newFileBtn = document.getElementById('newFileBtn');
-  const regenerateBtn = document.getElementById('regenerateBtn');
-  const progressWrapper = document.getElementById('progressWrapper');
-  const progressFill = document.getElementById('progressFill');
-  const progressText = document.getElementById('progressText');
-  const previewSection = document.getElementById('preview-section');
-  const previewGrid = document.getElementById('previewGrid');
-  const uploadSection = document.getElementById('upload-section');
-  const successMessage = document.getElementById('successMessage');
-  const errorMessage = document.getElementById('errorMessage');
-  const marginInput = document.getElementById('marginInput');
+    const uploadArea = document.getElementById('uploadArea');
+    const pdfInput = document.getElementById('pdfInput');
+    const fileInfo = document.getElementById('fileInfo');
+    const statusMessage = document.getElementById('statusMessage');
 
-  // Dimensões A4 em pontos (72 DPI = 1 ponto)
-  const A4_WIDTH_PT = 210 / 25.4 * 72; // 595.28 pt
-  const A4_HEIGHT_PT = 297 / 25.4 * 72; // 841.89 pt
+    uploadArea.addEventListener('click', () => pdfInput.click());
 
-  pdfInput.addEventListener('change', handleFileSelect);
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('drag-over');
+    });
 
-  function handleFileSelect(e) {
-    const file = e.target.files[0];
-    if (!file || file.type !== 'application/pdf') {
-      alert('Por favor, selecione um arquivo PDF válido.');
-      return;
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('drag-over');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('drag-over');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleFileUpload(files[0]);
+      }
+    });
+
+    pdfInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFileUpload(e.target.files[0]);
+      }
+    });
+
+    function handleFileUpload(file) {
+      if (file.type !== 'application/pdf') {
+        showStatus('Por favor, selecione um arquivo PDF válido.', 'error');
+        return;
+      }
+
+      if (file.size > 50 * 1024 * 1024) {
+        showStatus('Arquivo muito grande. Máximo: 50MB', 'error');
+        return;
+      }
+
+      uploadedFileName = file.name;
+      const reader = new FileReader();
+
+      reader.onload = async (e) => {
+        try {
+          pdfDoc = await pdfjsLib.getDocument(e.target.result).promise;
+          updateFileInfo();
+          showStatus(`✅ Arquivo carregado com sucesso: ${uploadedFileName}`, 'success');
+        } catch (err) {
+          showStatus('❌ Erro ao carregar o PDF. Verifique o arquivo.', 'error');
+          console.error(err);
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
     }
-    
-    pdfFile = file;
-    convertBtn.disabled = false;
-    const fileName = file.name.length > 30 ? file.name.substring(0, 27) + '...' : file.name;
-    convertBtn.textContent = '📄 ' + fileName + ' - Converter';
-  }
 
-  convertBtn.addEventListener('click', convertPDF);
-
-  async function convertPDF() {
-    if (!pdfFile) return;
-
-    convertBtn.disabled = true;
-    progressWrapper.style.display = 'block';
-    previewGrid.innerHTML = '';
-    successMessage.classList.remove('show');
-    errorMessage.classList.remove('show');
-
-    try {
-      const arrayBuffer = await pdfFile.arrayBuffer();
-      originalPdfDoc = await pdfjsLib.getDocument(arrayBuffer).promise;
-      pdfData = arrayBuffer;
-
-      const totalPages = originalPdfDoc.numPages;
-      progressText.textContent = `Carregando PDF com ${totalPages} página(s)...`;
-      progressFill.style.width = '100%';
-
-      generatePreview();
-      previewSection.style.display = 'block';
-      uploadSection.scrollIntoView({ behavior: 'smooth' });
-      progressWrapper.style.display = 'none';
-      successMessage.classList.add('show');
-      convertBtn.disabled = false;
-      convertBtn.textContent = '🔄 Converter outro PDF';
-
-    } catch (error) {
-      console.error('Erro:', error);
-      errorMessage.textContent = '❌ Erro ao processar: ' + error.message;
-      errorMessage.classList.add('show');
-      progressWrapper.style.display = 'none';
-      convertBtn.disabled = false;
+    function updateFileInfo() {
+      const fileSize = (pdfInput.files[0].size / 1024 / 1024).toFixed(2);
+      document.getElementById('fileName').textContent = uploadedFileName;
+      document.getElementById('fileSize').textContent = `${fileSize} MB`;
+      document.getElementById('filePages').textContent = pdfDoc.numPages;
+      fileInfo.classList.add('show');
     }
-  }
 
-  async function generatePreview() {
-    previewGrid.innerHTML = '';
-    
-    if (!originalPdfDoc) return;
+    function showStatus(message, type) {
+      statusMessage.textContent = message;
+      statusMessage.className = `status-message show ${type}`;
+      setTimeout(() => {
+        statusMessage.classList.remove('show');
+      }, 5000);
+    }
 
-    const totalPages = originalPdfDoc.numPages;
+    async function convertPDF() {
+      if (!pdfDoc) {
+        showStatus('❌ Por favor, carregue um arquivo PDF primeiro.', 'error');
+        return;
+      }
 
-    for (let i = 1; i <= totalPages; i++) {
-      const page = await originalPdfDoc.getPage(i);
-      const viewport = page.getViewport({ scale: 0.3 });
-      
-      const previewDiv = document.createElement('div');
-      previewDiv.className = 'preview-page';
-      
+      const progressSection = document.getElementById('progressSection');
+      progressSection.classList.add('active');
+      document.getElementById('convertBtn').disabled = true;
+
       try {
+        const paperSize = document.getElementById('paperSize').value;
+        const overlap = parseInt(document.getElementById('overlap').value);
+        const quality = document.getElementById('quality').value;
+
+        const dpi = quality === 'high' ? 300 : quality === 'medium' ? 150 : 100;
+        const scale = dpi / 72;
+
+        posterData = await createPosters(paperSize, overlap, scale);
+
+        updateProgress(100);
+        document.getElementById('previewSection').classList.add('active');
+        showPreview(posterData.images[0]);
+        showStatus('✅ Conversão concluída! Pronto para baixar.', 'success');
+
+      } catch (err) {
+        showStatus('❌ Erro ao converter PDF.', 'error');
+        console.error(err);
+      } finally {
+        document.getElementById('convertBtn').disabled = false;
+        progressSection.classList.remove('active');
+      }
+    }
+
+    async function createPosters(paperSize, overlap, scale) {
+      const paperSizes = {
+        'A4': [210, 297],
+        'A3': [297, 420],
+        'Letter': [215.9, 279.4]
+      };
+
+      const [paperWidth, paperHeight] = paperSizes[paperSize];
+      const mmToPixel = 3.78;
+      const posterWidth = paperWidth * mmToPixel * scale;
+      const posterHeight = paperHeight * mmToPixel * scale;
+      const overlapPixels = overlap * mmToPixel * scale;
+
+      const posters = [];
+      const images = [];
+
+      for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+        const page = await pdfDoc.getPage(pageNum);
+        const viewport = page.getViewport({ scale });
         const canvas = document.createElement('canvas');
         canvas.width = viewport.width;
         canvas.height = viewport.height;
 
         const context = canvas.getContext('2d');
-        const renderContext = { canvasContext: context, viewport: viewport };
-        await page.render(renderContext).promise;
+        await page.render({ canvasContext: context, viewport }).promise;
 
-        previewDiv.appendChild(canvas);
-        
-        const overlay = document.createElement('div');
-        overlay.className = 'preview-overlay';
-        overlay.textContent = `Página ${i}`;
-        previewDiv.appendChild(overlay);
-      } catch (e) {
-        console.error('Erro ao renderizar página', i, e);
-        previewDiv.innerHTML = '<div style="color: red; padding: 10px; text-align: center; font-size: 12px;">Erro ao renderizar</div>';
-      }
-      
-      previewGrid.appendChild(previewDiv);
-    }
-  }
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
 
-  regenerateBtn.addEventListener('click', generatePreview);
+        const colsNeeded = Math.ceil((imgWidth - overlapPixels) / (posterWidth - overlapPixels));
+        const rowsNeeded = Math.ceil((imgHeight - overlapPixels) / (posterHeight - overlapPixels));
 
-  downloadBtn.addEventListener('click', downloadPosterPDF);
+        for (let row = 0; row < rowsNeeded; row++) {
+          for (let col = 0; col < colsNeeded; col++) {
+            const x = col * (posterWidth - overlapPixels);
+            const y = row * (posterHeight - overlapPixels);
 
-  async function downloadPosterPDF() {
-    if (!originalPdfDoc || !pdfData) return;
+            const posterCanvas = document.createElement('canvas');
+            posterCanvas.width = posterWidth;
+            posterCanvas.height = posterHeight;
+            const posterCtx = posterCanvas.getContext('2d');
 
-    downloadBtn.disabled = true;
-    downloadBtn.textContent = '⏳ Gerando Poster...';
-    errorMessage.classList.remove('show');
+            posterCtx.fillStyle = '#fff';
+            posterCtx.fillRect(0, 0, posterWidth, posterHeight);
 
-    try {
-      const { jsPDF } = window.jspdf;
-      let posterPdf = null;
-      const margin = Math.max(0, parseFloat(marginInput.value)) || 5;
+            posterCtx.drawImage(canvas, x, y, posterWidth, posterHeight, 0, 0, posterWidth, posterHeight);
 
-      // Processar cada página do PDF original
-      const totalPages = originalPdfDoc.numPages;
-
-      for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-        const page = await originalPdfDoc.getPage(pageNum);
-        
-        // Obter dimensões originais da página
-        const viewport = page.getViewport({ scale: 1 });
-        const pageWidth = viewport.width; // em pontos
-        const pageHeight = viewport.height; // em pontos
-
-        // Calcular quantas folhas A4 são necessárias
-        const tilesHorizontal = Math.ceil(pageWidth / A4_WIDTH_PT);
-        const tilesVertical = Math.ceil(pageHeight / A4_HEIGHT_PT);
-
-        // Renderizar a página inteira em alta resolução
-        const fullCanvas = await renderPageFullSize(page, pageWidth, pageHeight);
-
-        // Dividir em tiles (folhas A4)
-        for (let y = 0; y < tilesVertical; y++) {
-          for (let x = 0; x < tilesHorizontal; x++) {
-            if (!posterPdf) {
-              posterPdf = new jsPDF({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4'
-              });
-            } else {
-              posterPdf.addPage();
-            }
-
-            // Extrair tile do canvas
-            const tileCanvas = document.createElement('canvas');
-            tileCanvas.width = A4_WIDTH_PT;
-            tileCanvas.height = A4_HEIGHT_PT;
-            const tileCtx = tileCanvas.getContext('2d');
-
-            const srcX = x * A4_WIDTH_PT;
-            const srcY = y * A4_HEIGHT_PT;
-
-            tileCtx.drawImage(fullCanvas, srcX, srcY, A4_WIDTH_PT, A4_HEIGHT_PT, 0, 0, A4_WIDTH_PT, A4_HEIGHT_PT);
-
-            // Adicionar marca de corte
-            tileCtx.strokeStyle = '#00AA00';
-            tileCtx.lineWidth = 2;
-            const cornerSize = 20;
-            tileCtx.strokeRect(5, 5, cornerSize, cornerSize);
-            tileCtx.strokeRect(A4_WIDTH_PT - cornerSize - 5, 5, cornerSize, cornerSize);
-            tileCtx.strokeRect(5, A4_HEIGHT_PT - cornerSize - 5, cornerSize, cornerSize);
-            tileCtx.strokeRect(A4_WIDTH_PT - cornerSize - 5, A4_HEIGHT_PT - cornerSize - 5, cornerSize, cornerSize);
-
-            // Adicionar texto com posição
-            tileCtx.fillStyle = '#009C3B';
-            tileCtx.font = 'bold 12px Arial';
-            tileCtx.fillText(`${x + 1}x${y + 1}`, 15, A4_HEIGHT_PT - 15);
-            tileCtx.fillText(`P${pageNum}`, A4_WIDTH_PT - 35, A4_HEIGHT_PT - 15);
-
-            // Converter tile para imagem e adicionar ao PDF
-            const tileImgData = tileCanvas.toDataURL('image/png');
-            posterPdf.addImage(tileImgData, 'PNG', 0, 0, 210, 297);
+            images.push(posterCanvas.toDataURL('image/jpeg', 0.95));
+            updateProgress((posters.length / (rowsNeeded * colsNeeded)) * 100);
+            posters.push(posterCanvas);
           }
         }
       }
 
-      if (posterPdf) {
-        const fileName = pdfFile.name.replace('.pdf', '') + '_POSTER_A4.pdf';
-        posterPdf.save(fileName);
-
-        downloadBtn.disabled = false;
-        downloadBtn.textContent = '✅ Poster gerado!';
-        
-        setTimeout(() => {
-          downloadBtn.textContent = '⬇️ Baixar PDF em modo POSTER';
-        }, 3000);
-      }
-
-    } catch (error) {
-      console.error('Erro ao gerar poster:', error);
-      errorMessage.textContent = '❌ Erro ao gerar Poster: ' + error.message;
-      errorMessage.classList.add('show');
-      downloadBtn.disabled = false;
-      downloadBtn.textContent = '⬇️ Baixar PDF em modo POSTER';
+      return { posters, images };
     }
-  }
 
-  async function renderPageFullSize(page, width, height) {
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
+    function showPreview(imageData) {
+      const canvas = document.getElementById('preview-canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
 
-    const context = canvas.getContext('2d');
-    const viewport = page.getViewport({ scale: 1 });
-    const renderContext = { canvasContext: context, viewport: viewport };
-    await page.render(renderContext).promise;
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+      };
 
-    return canvas;
-  }
-
-  newFileBtn.addEventListener('click', () => {
-    // Limpar referências
-    pdfInput.value = '';
-    pdfFile = null;
-    pdfData = null;
-    originalPdfDoc = null;
-    
-    // Resetar UI
-    previewSection.style.display = 'none';
-    previewGrid.innerHTML = '';
-    convertBtn.disabled = true;
-    convertBtn.textContent = '🔄 Converter PDF';
-    progressWrapper.style.display = 'none';
-    successMessage.classList.remove('show');
-    errorMessage.classList.remove('show');
-    uploadSection.scrollIntoView({ behavior: 'smooth' });
-  });
-
-  // Drag and drop
-  const uploadLabel = document.querySelector('.file-input-label');
-  uploadLabel.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    uploadLabel.style.background = 'rgba(0, 156, 59, 0.25)';
-  });
-
-  uploadLabel.addEventListener('dragleave', () => {
-    uploadLabel.style.background = 'rgba(0, 156, 59, 0.15)';
-  });
-
-  uploadLabel.addEventListener('drop', (e) => {
-    e.preventDefault();
-    uploadLabel.style.background = 'rgba(0, 156, 59, 0.15)';
-    
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      pdfInput.files = files;
-      const event = new Event('change', { bubbles: true });
-      pdfInput.dispatchEvent(event);
+      img.src = imageData;
     }
-  });
-</script>
 
+    function updateProgress(percent) {
+      document.getElementById('progressFill').style.width = percent + '%';
+      document.getElementById('progressText').textContent = Math.round(percent) + '% concluído';
+    }
+
+    async function downloadPosters() {
+      if (!posterData) return;
+
+      const paperSize = document.getElementById('paperSize').value;
+      const paperSizes = {
+        'A4': [210, 297],
+        'A3': [297, 420],
+        'Letter': [215.9, 279.4]
+      };
+
+      const [paperWidth, paperHeight] = paperSizes[paperSize];
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: paperSize
+      });
+
+      posterData.images.forEach((imgData, index) => {
+        if (index > 0) {
+          pdf.addPage();
+        }
+
+        pdf.addImage(imgData, 'JPEG', 0, 0, paperWidth, paperHeight);
+        pdf.setFontSize(8);
+        pdf.text(`Página ${index + 1}`, paperWidth - 20, paperHeight - 5);
+      });
+
+      const fileName = uploadedFileName.replace('.pdf', '') + '_posters_A4.pdf';
+      pdf.save(fileName);
+      showStatus(`✅ Arquivo baixado com sucesso: ${fileName}`, 'success');
+    }
+  </script>
 </body>
 </html>
